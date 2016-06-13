@@ -29,6 +29,9 @@ namespace ExcelAnalysisTools.XServices
             (ctPane.ContentControl as HostToolsPane).Host.Child = view;
             //ctPane.Visible = true;
             //ctPane.VisibleStateChange += CtPane_VisibleStateChange;
+            ctPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
+            ctPane.Width = 400;
+            ctPane.Height = 300;
             return ctPane;
         }
     }

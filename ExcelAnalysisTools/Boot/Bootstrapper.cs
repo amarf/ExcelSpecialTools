@@ -1,7 +1,10 @@
 ﻿using Core.Interfaces;
 using ExcelAnalysisTools.XServices;
+using ExcelDna.Integration;
 using ExcelDna.Integration.CustomUI;
+using Microsoft.Office.Interop.Excel;
 using Prism.StructureMap;
+using StructureMap.Pipeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +20,13 @@ namespace ExcelAnalysisTools.Boot
         {
             base.ConfigureContainer();
 
+
+
+            
             Container.Configure(r =>
             {
                 r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 r.For<IPaneManager<CustomTaskPane>>().Use<ExcelTaskPaneManager>();
-
 
                 //r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 //r.For<IAppService>().Use<AppService>().Singleton();
