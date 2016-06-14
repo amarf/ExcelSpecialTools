@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<regexes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<replaceExpression value="-я(?=\s)" replaceValue="" order="1"/>
+	<replaceExpression value="-ая(?=\s)" replaceValue="" order="2"/>
+	<replaceExpression value="д\.(?=\d+)" replaceValue="" order="3"/>
+	<replaceExpression value="д\.(?=\s\d+)" replaceValue="" order="4"/>
+	<replaceExpression value="(?&lt;=\s)литер[а]{0,1}(?=\s)" replaceValue="лит" order="5"/>
+	<replaceExpression value="(?&lt;=\s)ул(?=[.,])" replaceValue="" order="6"/>
+	<replaceExpression value="ё" replaceValue="е" order="7"/>
+	<replaceExpression value="ъ" replaceValue="ь" order="8"/>
+	<replaceExpression value="[., ]*" replaceValue="" order="9"/>
+	<replaceExpression value="\s+" replaceValue="" order="10"/>
+</regexes>

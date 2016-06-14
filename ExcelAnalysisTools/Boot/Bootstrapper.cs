@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using ExcelAnalysisTools.Services;
 using ExcelAnalysisTools.XServices;
 using ExcelDna.Integration;
 using ExcelDna.Integration.CustomUI;
@@ -27,20 +28,31 @@ namespace ExcelAnalysisTools.Boot
             {
                 r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 r.For<IPaneManager<CustomTaskPane>>().Use<ExcelTaskPaneManager>();
-
+                r.For<IOptionsService>().Use<OptionsService>().Singleton();
+                r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
+                r.For<IDataService>().Use<DataService>();
+                r.For<IUserMsgService>().Use<UserMsgService>();
                 //r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 //r.For<IAppService>().Use<AppService>().Singleton();
                 //r.For<IRepository<ProjectRoot>>().Use<Repository>();
-                //r.For<IDataService>().Use<DataService>().Singleton();
+                //
                 //r.For<IDialogCoordinator>().Use<DialogCoordinator>().Singleton();
                 //r.For<IFolderBrowserDialog>().Use<FolderBrowserDialog>().Singleton();
-                //r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
+
                 //r.For<IMemoryService>().Use<MemoryService>();
                 //r.For<ILogger>().Use<Logger>().Singleton();
                 //r.ForConcreteType<MetroDialogSettings>().Configure
                 //    .Ctor<string>("AffirmativeButtonText").Is("ЕПТЫ БЛЯ")
                 //    .Ctor<string>("NegativeButtonText").Is("НЕТ ТЫ ЧЕ"); //TODO: Localize
             });
+        }
+
+
+        public override void Run(bool runWithDefaultConfiguration)
+        {
+            base.Run(runWithDefaultConfiguration);  
+
+
         }
     }
 }

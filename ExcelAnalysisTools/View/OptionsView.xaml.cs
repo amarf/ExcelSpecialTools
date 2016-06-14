@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ExcelAnalysisTools.View
 {
     /// <summary>
-    /// Логика взаимодействия для ToolsPaneView.xaml
+    /// Логика взаимодействия для OptionsView.xaml
     /// </summary>
-    public partial class ToolsPaneView : UserControl
+    public partial class OptionsView : UserControl
     {
-        public ToolsPaneView()
+        public OptionsView()
         {
             InitializeComponent();
         }

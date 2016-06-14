@@ -1,5 +1,6 @@
 ﻿using Commander;
 using Core.Interfaces;
+using ExcelAnalysisTools.Model;
 using ExcelDna.Integration;
 using Microsoft.Office.Interop.Excel;
 using PropertyChanged;
@@ -7,17 +8,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ExcelAnalysisTools.ViewModel
 {
     [ImplementPropertyChanged]
-    public class ToolsPaneViewModel : IDisposable
+    public class PrimaryProcessingsViewModel : IDisposable
     {
         private readonly Application _excelApplication;
+        private readonly IOptionsService _optionsService;
+        private readonly IDataService _dataService;
 
-        public ToolsPaneViewModel()
+        public PrimaryProcessingsViewModel(IOptionsService optionsService, IDataService dataService)
         {
+            _optionsService = optionsService;
+            _dataService = dataService;
+
             _excelApplication = (Application)ExcelDnaUtil.Application;
             _excelApplication.SheetSelectionChange += _excelApplication_SheetSelectionChange;
         }
@@ -93,7 +100,19 @@ namespace ExcelAnalysisTools.ViewModel
             var rowCount = GetRowCount();
             var lastDistrict = "";
             var worksheet = _excelApplication.ActiveSheet as Worksheet;
-            
+
+            //REGEX !!!
+            var addresses = _dataService.DeserializeObject<AddressList>(_optionsService.AddressListPath);
+            var regex = _dataService.DeserializeObject<RegexExpressionList>(_optionsService.RegexListPath);
+            foreach (var address in addresses.Items)
+            {
+                var rx_replace =  address.Address;
+                foreach (var rx in regex.Items.OrderBy(it => it.Order))
+                {
+                    rx_replace = Regex.Replace(rx_replace, rx.Expression, rx.ReplceExpression);
+                }
+                address.Regex = address.District + rx_replace;
+            }
 
             //var rowCount = worksheet.Rows.End[XlDirection.xlUp].Row;  район Санкт-Петербурга
             for (int i = 1; i < rowCount + 1; i++)
@@ -111,9 +130,19 @@ namespace ExcelAnalysisTools.ViewModel
                 {
                     if (!string.IsNullOrWhiteSpace(lastDistrict) && !string.IsNullOrWhiteSpace(val_address) && !val_address.ToLower().Contains("итого "))
                     {
-                        
+                        string curent_rx_replace = val_address;
+                        foreach (var rx in regex.Items.OrderBy(it=>it.Order))
+                        {
+                            curent_rx_replace = Regex.Replace(curent_rx_replace, rx.Expression, rx.ReplceExpression);
+                        }
+                        curent_rx_replace = lastDistrict + curent_rx_replace;
+
+                        var firstItem = addresses.Items.FirstOrDefault(it => it.Regex == curent_rx_replace); ;
+                        worksheet.Cells[i, 2] = firstItem?.Regex;
+
+
                         worksheet.Cells[i, 1].FormulaR1C1 = $"=RC4&RegexReplacePlus(RC{Column_AddressNumber},РП!R2C7:R36C7,РП!R2C8:R36C8)";
-                        worksheet.Cells[i, 2].FormulaR1C1 = $"=MATCH(RC[-1], РП!C5, 0)";
+                        //worksheet.Cells[i, 2].FormulaR1C1 = $"=MATCH(RC[-1], РП!C5, 0)";
                         worksheet.Cells[i, 3].FormulaR1C1 = $"=COUNTIF(C[-1],RC[-1])";
                         worksheet.Cells[i, 4] = lastDistrict;
                     }

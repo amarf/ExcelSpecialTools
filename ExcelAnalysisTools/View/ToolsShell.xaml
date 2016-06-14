@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="ExcelAnalysisTools.View.ToolsShell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ExcelAnalysisTools.View"
+             xmlns:region="http://prismlibrary.com/"
+             xmlns:names="clr-namespace:Microsoft.Office.Core;assembly=office"
+             xmlns:vm="clr-namespace:ExcelAnalysisTools.ViewModel"
+             xmlns:view="clr-namespace:ExcelAnalysisTools.View"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:PrimaryProcessingsViewModel}">
+            <view:PrimaryProcessingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OptionsViewModel}">
+            <view:OptionsView />
+        </DataTemplate>
+    </UserControl.Resources>
+    <TabControl>
+        <TabItem Header="Обработка"
+                 Content="{Binding PrimaryProcessings}" />
+        <TabItem Header="Настройки"
+                 Content="{Binding Options}" />
+    </TabControl>
+</UserControl>

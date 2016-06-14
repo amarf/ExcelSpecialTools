@@ -126,11 +126,30 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aspects\IfNullPropertyAspect.cs" />
     <Compile Include="Boot\Bootstrapper.cs" />
     <Compile Include="Boot\App.cs" />
-    <Compile Include="ViewModel\ToolsPaneViewModel.cs" />
-    <Compile Include="View\ToolsPaneView.xaml.cs">
-      <DependentUpon>ToolsPaneView.xaml</DependentUpon>
+    <Compile Include="Model\AddressList.cs" />
+    <Compile Include="Model\AddressModel.cs" />
+    <Compile Include="Model\RegexExpression.cs" />
+    <Compile Include="Model\RegexExpressionList.cs" />
+    <Compile Include="Model\RegexReplaceExpression.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\FileBrowserDialog.cs" />
+    <Compile Include="Services\OptionsService.cs" />
+    <Compile Include="Services\UserMsgService.cs" />
+    <Compile Include="ViewModel\AddressListViewModel.cs" />
+    <Compile Include="ViewModel\OptionsViewModel.cs" />
+    <Compile Include="ViewModel\ShellViewModel.cs" />
+    <Compile Include="ViewModel\PrimaryProcessingsViewModel.cs" />
+    <Compile Include="View\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PrimaryProcessingsView.xaml.cs">
+      <DependentUpon>PrimaryProcessingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ToolsShell.xaml.cs">
+      <DependentUpon>ToolsShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="WfHosts\HostToolsPane.cs">
       <SubType>UserControl</SubType>
@@ -154,6 +173,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Model\Data\AddressesList.xml" />
+    <Content Include="Model\Data\Module1.bas" />
+    <Content Include="Model\Data\Module3.bas" />
+    <Content Include="Model\Data\Макросы переноса.bas" />
+    <Resource Include="Model\Data\RegexList.xml" />
     <EmbeddedResource Include="WfHosts\HostToolsPane.resx">
       <DependentUpon>HostToolsPane.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,7 +217,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\ToolsPaneView.xaml">
+    <Page Include="View\AddressListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PrimaryProcessingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ToolsShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,9 +240,7 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)ExcelAnalysisTools-AddIn.dna*" "$(TargetDir)ExcelAnalysisTools64.dna*" /C /Y

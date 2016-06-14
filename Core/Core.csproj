@@ -57,7 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Interfaces\IExcelTaskPaneManager.cs" />
+    <Compile Include="Interfaces\IFileBrowserDialog.cs" />
+    <Compile Include="Interfaces\IMethodDecorator.cs" />
+    <Compile Include="Interfaces\IOptionsService.cs" />
+    <Compile Include="Interfaces\IUserMsgService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
