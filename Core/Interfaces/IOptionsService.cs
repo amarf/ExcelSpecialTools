@@ -9,9 +9,9 @@ namespace Core.Interfaces
 {
     public interface IOptionsService
     {
-        string SubPath { get; }
-        string PersonalPath { get; }
-        string FullPath { get; }
+        string OptionsFileSubPath { get; }
+        string OptionsFolderPath { get; }
+        string OptionsFileFullPath { get; }
 
         string AddressListPath { get; set; }
         string RegexListPath { get; set; }

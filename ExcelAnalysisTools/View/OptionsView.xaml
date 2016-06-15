@@ -10,7 +10,7 @@
     <Grid>
         <StackPanel>
             <TextBlock Margin="3"
-                       Text="{Binding OptionsService.AddressListPath}"
+                       Text="{Binding Data.AddressListPath}"
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
             <Button Margin="3"
@@ -23,7 +23,7 @@
                     Command="{Binding CreateAddressListCommand}"
                     Content="Создать файл адресов" />
             <TextBlock Margin="3"
-                       Text="{Binding OptionsService.RegexListPath}"
+                       Text="{Binding Data.RegexListPath}"
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
             <Button Margin="3"

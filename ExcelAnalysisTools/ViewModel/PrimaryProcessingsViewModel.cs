@@ -1,6 +1,7 @@
 ﻿using Commander;
 using Core.Interfaces;
 using ExcelAnalysisTools.Model;
+using ExcelAnalysisTools.Services;
 using ExcelDna.Integration;
 using Microsoft.Office.Interop.Excel;
 using PropertyChanged;
@@ -17,13 +18,11 @@ namespace ExcelAnalysisTools.ViewModel
     public class PrimaryProcessingsViewModel : IDisposable
     {
         private readonly Application _excelApplication;
-        private readonly IOptionsService _optionsService;
-        private readonly IDataService _dataService;
+        private readonly Repository _repository;
 
-        public PrimaryProcessingsViewModel(IOptionsService optionsService, IDataService dataService)
+        public PrimaryProcessingsViewModel(Repository repository)
         {
-            _optionsService = optionsService;
-            _dataService = dataService;
+            _repository = repository;
 
             _excelApplication = (Application)ExcelDnaUtil.Application;
             _excelApplication.SheetSelectionChange += _excelApplication_SheetSelectionChange;
@@ -43,6 +42,27 @@ namespace ExcelAnalysisTools.ViewModel
         public int Row_AddressStartNumber { get; set; } = 14;
 
         public string DistrictReplace { get; set; } = " район Санкт-Петербурга";
+
+
+        
+
+        private void _excelApplication_SheetSelectionChange(object Sh, Range Target)
+        {
+            if (IsSelectDistrictColumn && !IsSelectAddressColumn)
+            {
+                Column_DistrictNumber = Target.EntireColumn.Column;
+                Row_DistrictStartNumber = Target.EntireRow.Row;
+            }
+            else if (IsSelectAddressColumn && !IsSelectDistrictColumn)
+            {
+                Column_AddressNumber = Target.EntireColumn.Column;
+                Row_AddressStartNumber = Target.EntireRow.Row;
+            }
+            else if (!IsSelectAddressColumn && !IsSelectDistrictColumn)
+            { }
+            else throw new ArgumentException();
+        }
+
 
 
         [OnCommand("SelectDistrictColumnCommand")]
@@ -68,27 +88,6 @@ namespace ExcelAnalysisTools.ViewModel
             else
                 IsSelectAddressColumn = false;
         }
-
-        private void _excelApplication_SheetSelectionChange(object Sh, Range Target)
-        {
-            if (IsSelectDistrictColumn && !IsSelectAddressColumn)
-            {
-                Column_DistrictNumber = Target.EntireColumn.Column;
-                Row_DistrictStartNumber = Target.EntireRow.Row;
-            }
-            else if (IsSelectAddressColumn && !IsSelectDistrictColumn)
-            {
-                Column_AddressNumber = Target.EntireColumn.Column;
-                Row_AddressStartNumber = Target.EntireRow.Row;
-            }
-            else if (!IsSelectAddressColumn && !IsSelectDistrictColumn)
-            { }
-            else throw new ArgumentException();
-        }
-
-
-        
-
         [OnCommand("StartDistrictMarcosCommand")]
         public void StartDistrictMarcos()
         {
@@ -102,8 +101,8 @@ namespace ExcelAnalysisTools.ViewModel
             var worksheet = _excelApplication.ActiveSheet as Worksheet;
 
             //REGEX !!!
-            var addresses = _dataService.DeserializeObject<AddressList>(_optionsService.AddressListPath);
-            var regex = _dataService.DeserializeObject<RegexExpressionList>(_optionsService.RegexListPath);
+            var addresses = _repository.AddressList;
+            var regex = _repository.RegexList;
             foreach (var address in addresses.Items)
             {
                 var rx_replace =  address.Address;
@@ -165,7 +164,6 @@ namespace ExcelAnalysisTools.ViewModel
             for (int i = 0; i < count; i++)
                 worksheet.Range["A:A"].Insert(XlInsertShiftDirection.xlShiftToRight, XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
         }
-
         private void StopCalculation()
         {
             _excelApplication.ScreenUpdating = false;
@@ -176,7 +174,6 @@ namespace ExcelAnalysisTools.ViewModel
             _excelApplication.ScreenUpdating = true;
             _excelApplication.Calculation = XlCalculation.xlCalculationAutomatic;
         }
-
         private int GetRowCount()
         {
             var lasti = 1;
@@ -194,7 +191,6 @@ namespace ExcelAnalysisTools.ViewModel
             }
             return 0;
         }
-
         private int GetColumnCount()
         {
             var lasti = 1;

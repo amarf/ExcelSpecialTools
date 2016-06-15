@@ -18,55 +18,22 @@ namespace ExcelAnalysisTools.ViewModel
     [ImplementPropertyChanged]
     public class OptionsViewModel
     {
-        
-        private readonly IDataService _dataService;
+        public Options Data { get; private set; }
+
+        private readonly Repository _repository;
         private readonly IServiceLocator _serviceLocator;
         private readonly IUserMsgService _userMsgService;
 
-        public IOptionsService OptionsService { get; set; }
 
-        public OptionsViewModel(IServiceLocator serviceLocator, IOptionsService optionsService, IDataService dataService, IUserMsgService userMsgService)
+        public OptionsViewModel(IServiceLocator serviceLocator, Repository repository, IUserMsgService userMsgService)
         {
             _serviceLocator = serviceLocator;
-            _dataService = dataService;
+            _repository = repository;
             _userMsgService = userMsgService;
-            OptionsService = optionsService;
 
-            GetOptionsFile();
-        
+            Data = _repository.Options;
         }
 
-        private void GetOptionsFile()
-        {
-            if (File.Exists(OptionsService.FullPath))
-                LoadOptionFile(OptionsService.FullPath);
-        }
-        private void SaveOptionFile(string filePath)
-        {
-            if (string.IsNullOrWhiteSpace(filePath)) return;
-            try
-            {
-                _dataService.SerializeObject((OptionsService)OptionsService, OptionsService.FullPath);
-            }
-            catch (Exception e)
-            {
-                _userMsgService.MsgShow("Не удалось сохранить файл настроек");
-            }
-        }
-        private void LoadOptionFile(string filePath)
-        {
-            if (string.IsNullOrWhiteSpace(filePath)) return;
-            try
-            {
-                var temp_OptionsService = _dataService.DeserializeObject<OptionsService>(filePath);
-                OptionsService.AddressListPath = temp_OptionsService.AddressListPath;
-                OptionsService.RegexListPath = temp_OptionsService.RegexListPath;
-            }
-            catch (Exception e)
-            {
-                _userMsgService.MsgShow("Не удалось загрузить файл настроек");
-            }
-        }
         private string GetFilePath(bool isSave = false)
         {
             var fd = _serviceLocator.GetInstance<IFileBrowserDialog>();
@@ -82,14 +49,14 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("OpenAddressListCommand")]
         private void OpenAddressList()
         {
-            OptionsService.AddressListPath = GetFilePath();
-            SaveOptionFile(OptionsService.FullPath);
+            _repository.Options.AddressListPath = GetFilePath();
+            _repository.Save<Options>();
         }
         [OnCommand("OpenRegexListCommand")]
         private void OpenRegexList()
         {
-            OptionsService.RegexListPath = GetFilePath();
-            SaveOptionFile(OptionsService.FullPath);
+            _repository.Options.RegexListPath = GetFilePath();
+            _repository.Save<Options>();
         }
         [OnCommand("EditAddressListCommand")]
         private void EditAddressList()
@@ -99,11 +66,6 @@ namespace ExcelAnalysisTools.ViewModel
             ctPane.Width = 600;
             ctPane.Height = 450;
             ctPane.Visible = true;
-
-            //var view = _serviceLocator.GetInstance<AddressListWindowView>();
-            //var viewmodel = _serviceLocator.GetInstance<AddressListWindowViewModel>();
-            //view.DataContext = viewmodel;
-            //view.Show();
         }
         [OnCommand("EditRegexListCommand")]
         private void EditRegexList()
@@ -112,37 +74,37 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("CreateAddressListCommand")]
         private void CreateAddressList()
         {
-            var filePath = GetFilePath(true);
-            if (string.IsNullOrWhiteSpace(filePath)) return;
+            //var filePath = GetFilePath(true);
+            //if (string.IsNullOrWhiteSpace(filePath)) return;
 
-            var newList = AddressList.Create();
-            try
-            {
-                _dataService.SerializeObject(newList, filePath);
-                OptionsService.AddressListPath = filePath;
-                SaveOptionFile(OptionsService.FullPath);
-            }
-            catch (Exception e)
-            {
-                _userMsgService.MsgShow("Не удалось сохранить файл адресов");
-            }
+            //var newList = AddressList.Create();
+            //try
+            //{
+            //    _dataService.SerializeObject(newList, filePath);
+            //    OptionsService.AddressListPath = filePath;
+            //    SaveOptionFile(OptionsService.OptionsFileFullPath);
+            //}
+            //catch (Exception e)
+            //{
+            //    _userMsgService.MsgShow("Не удалось сохранить файл адресов");
+            //}
         }
         [OnCommand("CreateRegexListCommand")]
         private void CreateRegexList()
         {
-            var filePath = GetFilePath(true);
-            if (string.IsNullOrWhiteSpace(filePath)) return;
-            var newList = RegexExpressionList.Create();
-            try
-            {
-                _dataService.SerializeObject(newList, filePath);
-                OptionsService.RegexListPath = filePath;
-                SaveOptionFile(OptionsService.FullPath);
-            }
-            catch (Exception e)
-            {
-                _userMsgService.MsgShow("Не удалось сохранить файл выражений");
-            }
+            //var filePath = GetFilePath(true);
+            //if (string.IsNullOrWhiteSpace(filePath)) return;
+            //var newList = RegexExpressionList.Create();
+            //try
+            //{
+            //    _dataService.SerializeObject(newList, filePath);
+            //    OptionsService.RegexListPath = filePath;
+            //    SaveOptionFile(OptionsService.OptionsFileFullPath);
+            //}
+            //catch (Exception e)
+            //{
+            //    _userMsgService.MsgShow("Не удалось сохранить файл выражений");
+            //}
 
 
         }

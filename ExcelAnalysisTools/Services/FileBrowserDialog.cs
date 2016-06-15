@@ -70,7 +70,7 @@ namespace ExcelAnalysisTools.Services
 
         public bool ShowDialog()
         {
-            return _dialog.ShowDialog() == DialogResult.OK;
+            return _dialog.ShowDialog() == DialogResult.OK && (!string.IsNullOrWhiteSpace(_dialog.FileName) || _dialog.FileNames.Length>0);
         }
 
         public bool Multiselect

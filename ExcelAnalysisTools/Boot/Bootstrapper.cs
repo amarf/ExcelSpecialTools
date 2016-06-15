@@ -26,12 +26,14 @@ namespace ExcelAnalysisTools.Boot
             
             Container.Configure(r =>
             {
+                r.ForSingletonOf<Repository>().Use<Repository>();
+
                 r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 r.For<IPaneManager<CustomTaskPane>>().Use<ExcelTaskPaneManager>();
-                r.For<IOptionsService>().Use<OptionsService>().Singleton();
                 r.For<IFileBrowserDialog>().Use<FileBrowserDialog>();
                 r.For<IDataService>().Use<DataService>();
                 r.For<IUserMsgService>().Use<UserMsgService>();
+                
                 //r.For<IComponentConnector>().OnCreationForAll(s => s.InitializeComponent());
                 //r.For<IAppService>().Use<AppService>().Singleton();
                 //r.For<IRepository<ProjectRoot>>().Use<Repository>();

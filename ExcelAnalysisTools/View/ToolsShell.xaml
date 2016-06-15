@@ -18,11 +18,16 @@
         <DataTemplate DataType="{x:Type vm:OptionsViewModel}">
             <view:OptionsView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+            <view:ProfileView />
+        </DataTemplate>
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="Обработка"
                  Content="{Binding PrimaryProcessings}" />
         <TabItem Header="Настройки"
                  Content="{Binding Options}" />
+        <TabItem Header="Профили"
+                 Content="{Binding Profile}" />
     </TabControl>
 </UserControl>

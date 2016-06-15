@@ -131,15 +131,21 @@
     <Compile Include="Boot\App.cs" />
     <Compile Include="Model\AddressList.cs" />
     <Compile Include="Model\AddressModel.cs" />
+    <Compile Include="Model\Cell.cs" />
+    <Compile Include="Model\Options.cs" />
+    <Compile Include="Model\ProfileList.cs" />
     <Compile Include="Model\RegexExpression.cs" />
     <Compile Include="Model\RegexExpressionList.cs" />
     <Compile Include="Model\RegexReplaceExpression.cs" />
+    <Compile Include="Model\WorkSheetProfile.cs" />
+    <Compile Include="Model\WorkSheetProfileItem.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\FileBrowserDialog.cs" />
-    <Compile Include="Services\OptionsService.cs" />
+    <Compile Include="Services\Repository.cs" />
     <Compile Include="Services\UserMsgService.cs" />
     <Compile Include="ViewModel\AddressListViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\PrimaryProcessingsViewModel.cs" />
     <Compile Include="View\OptionsView.xaml.cs">
@@ -147,6 +153,9 @@
     </Compile>
     <Compile Include="View\PrimaryProcessingsView.xaml.cs">
       <DependentUpon>PrimaryProcessingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ToolsShell.xaml.cs">
       <DependentUpon>ToolsShell.xaml</DependentUpon>
@@ -226,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PrimaryProcessingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
