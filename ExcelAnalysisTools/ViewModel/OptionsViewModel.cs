@@ -23,13 +23,16 @@ namespace ExcelAnalysisTools.ViewModel
         private readonly Repository _repository;
         private readonly IServiceLocator _serviceLocator;
         private readonly IUserMsgService _userMsgService;
+        private readonly IFileBrowserDialog _fileBrowserDialog;
 
 
-        public OptionsViewModel(IServiceLocator serviceLocator, Repository repository, IUserMsgService userMsgService)
+
+        public OptionsViewModel(IServiceLocator serviceLocator, Repository repository, IUserMsgService userMsgService, IFileBrowserDialog fileBrowserDialog)
         {
             _serviceLocator = serviceLocator;
             _repository = repository;
             _userMsgService = userMsgService;
+            _fileBrowserDialog = fileBrowserDialog;
 
             Data = _repository.Options;
         }
@@ -49,64 +52,77 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("OpenAddressListCommand")]
         private void OpenAddressList()
         {
-            _repository.Options.AddressListPath = GetFilePath();
-            _repository.Save<Options>();
+            var path = GetFilePath();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                _repository.Options.AddressListPath = path;
+                _repository.Save<Options>();
+            }
         }
         [OnCommand("OpenRegexListCommand")]
         private void OpenRegexList()
         {
-            _repository.Options.RegexListPath = GetFilePath();
-            _repository.Save<Options>();
+            var path = GetFilePath();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                _repository.Options.RegexListPath = path;
+                _repository.Save<Options>();
+            }
         }
+
+
+        CustomTaskPane addressEditorPane;
         [OnCommand("EditAddressListCommand")]
         private void EditAddressList()
         {
-            var paneManager = _serviceLocator.GetInstance<IPaneManager<CustomTaskPane>>();
-            var ctPane = paneManager.CreateCustomTaskPane<AddressListView, AddressListViewModel>("Адрессный список");
-            ctPane.Width = 600;
-            ctPane.Height = 450;
-            ctPane.Visible = true;
+            if (addressEditorPane == null)
+            {
+                var paneManager = _serviceLocator.GetInstance<IPaneManager<CustomTaskPane>>();
+                addressEditorPane = paneManager.CreateCustomTaskPane<AddressListView, AddressListViewModel>("Адрессный список");
+                addressEditorPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
+                addressEditorPane.Width = 600;
+                addressEditorPane.Height = 450;
+                addressEditorPane.Visible = true;
+            }
+            else
+            {
+                addressEditorPane.Visible = true;
+            }
         }
+
+        CustomTaskPane regexEditorPane;
         [OnCommand("EditRegexListCommand")]
         private void EditRegexList()
         {
+            if (regexEditorPane == null)
+            {
+                var paneManager = _serviceLocator.GetInstance<IPaneManager<CustomTaskPane>>();
+                regexEditorPane = paneManager.CreateCustomTaskPane<RegexListView, RegexListViewModel>("Регулярные выражения");
+                regexEditorPane.DockPosition = MsoCTPDockPosition.msoCTPDockPositionFloating;
+                regexEditorPane.Width = 600;
+                regexEditorPane.Height = 450;
+                regexEditorPane.Visible = true;
+            }
+            else
+            {
+                regexEditorPane.Visible = true;
+            }
         }
         [OnCommand("CreateAddressListCommand")]
         private void CreateAddressList()
         {
-            //var filePath = GetFilePath(true);
-            //if (string.IsNullOrWhiteSpace(filePath)) return;
-
-            //var newList = AddressList.Create();
-            //try
-            //{
-            //    _dataService.SerializeObject(newList, filePath);
-            //    OptionsService.AddressListPath = filePath;
-            //    SaveOptionFile(OptionsService.OptionsFileFullPath);
-            //}
-            //catch (Exception e)
-            //{
-            //    _userMsgService.MsgShow("Не удалось сохранить файл адресов");
-            //}
+            _fileBrowserDialog.IsSaveFileDialog = true;
+            _fileBrowserDialog.Reset();
+            if (_fileBrowserDialog.ShowDialog())
+                _repository.Create<AddressList>(_fileBrowserDialog.SelectedPath);
         }
         [OnCommand("CreateRegexListCommand")]
         private void CreateRegexList()
         {
-            //var filePath = GetFilePath(true);
-            //if (string.IsNullOrWhiteSpace(filePath)) return;
-            //var newList = RegexExpressionList.Create();
-            //try
-            //{
-            //    _dataService.SerializeObject(newList, filePath);
-            //    OptionsService.RegexListPath = filePath;
-            //    SaveOptionFile(OptionsService.OptionsFileFullPath);
-            //}
-            //catch (Exception e)
-            //{
-            //    _userMsgService.MsgShow("Не удалось сохранить файл выражений");
-            //}
-
-
+            _fileBrowserDialog.IsSaveFileDialog = true;
+            _fileBrowserDialog.Reset();
+            if (_fileBrowserDialog.ShowDialog())
+                _repository.Create<RegexExpressionList>(_fileBrowserDialog.SelectedPath);
         }
     }
 }

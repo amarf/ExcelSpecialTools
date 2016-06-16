@@ -144,10 +144,15 @@
     <Compile Include="Services\Repository.cs" />
     <Compile Include="Services\UserMsgService.cs" />
     <Compile Include="ViewModel\AddressListViewModel.cs" />
+    <Compile Include="ViewModel\AddressToAddressViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
+    <Compile Include="ViewModel\RegexListViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\PrimaryProcessingsViewModel.cs" />
+    <Compile Include="View\AddressToAddress.xaml.cs">
+      <DependentUpon>AddressToAddress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
@@ -156,6 +161,9 @@
     </Compile>
     <Compile Include="View\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegexListView.xaml.cs">
+      <DependentUpon>RegexListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ToolsShell.xaml.cs">
       <DependentUpon>ToolsShell.xaml</DependentUpon>
@@ -230,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddressToAddress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\OptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +251,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegexListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Resources\ScrollViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

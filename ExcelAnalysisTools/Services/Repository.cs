@@ -1,9 +1,11 @@
 ﻿using Core.Interfaces;
 using ExcelAnalysisTools.Model;
 using Microsoft.Practices.ServiceLocation;
+using PropertyChanged;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ExcelAnalysisTools.Services
 {
+    [ImplementPropertyChanged]
     public class Repository
     {
         private readonly IDataService _dataService;
@@ -51,6 +54,18 @@ namespace ExcelAnalysisTools.Services
                     catch (Exception)
                     {
                         obj = TryCreateData<T>(Options.OptionsFileFullPath);
+                    }
+                    finally
+                    {
+                        (obj as INotifyPropertyChanged).PropertyChanged += (sender, args) =>
+                        {
+                            if(args.PropertyName == "AddressListPath")
+                                AddressList = TryLoadData<AddressList>(Options.GetDataPath<AddressList>());
+                            else if (args.PropertyName == "RegexListPath")
+                                RegexList = TryLoadData<RegexExpressionList>(Options.GetDataPath<RegexExpressionList>());
+                            else if (args.PropertyName == "ProfileListPath")
+                                ProfileList = TryLoadData<ProfileList>(Options.GetDataPath<ProfileList>());
+                        };
                     }
                     return obj;
                 }
@@ -95,6 +110,8 @@ namespace ExcelAnalysisTools.Services
         {
             try
             {
+                //var m = typeof(T).GetMethod("Create", BindingFlags.Static);
+
                 var data = _serviceLocator.GetInstance<T>();
                 SetData<T>(data);
                 TrySaveData<T>(path);
@@ -102,7 +119,7 @@ namespace ExcelAnalysisTools.Services
                 TrySaveData<Options>(Options.OptionsFileFullPath);
                 return data;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _userMsgService.MsgShow("Не удалось создать данные: " + typeof(T).Name);
                 return null;
@@ -120,6 +137,8 @@ namespace ExcelAnalysisTools.Services
             var t = this.GetType().GetProperties().FirstOrDefault(property => property.PropertyType == typeof(T));
             if (t != null) t.SetValue(this, data);
         }
+
+
     }
 
 

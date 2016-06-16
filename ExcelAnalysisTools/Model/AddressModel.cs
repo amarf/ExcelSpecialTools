@@ -19,6 +19,8 @@ namespace ExcelAnalysisTools.Model
         public string Uid { get; set; } = Guid.NewGuid().ToString();
 
         [XmlIgnore]
-        public string Regex { get; set; } 
+        public string Regex { get; set; }
+
+     
     }
 }

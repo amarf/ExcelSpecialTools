@@ -11,6 +11,8 @@ namespace ExcelAnalysisTools.Model
     [ImplementPropertyChanged, Serializable]
     public class Cell
     {
+        [XmlAttribute("address")]
+        public string Address { get; set; }
         [XmlAttribute("r")]
         public int Row { get; set; }
         [XmlAttribute("c")]

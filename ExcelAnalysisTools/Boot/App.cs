@@ -45,7 +45,7 @@ namespace ExcelAnalysisTools.Boot.Ribbon
             {
                 var paneManager = _container.GetInstance<IPaneManager<CustomTaskPane>>();
                // var ctPane = paneManager.CreateCustomTaskPane<PrimaryProcessingsView, PrimaryProcessingsViewModel>("Панел инструментов");
-                var ctPane = paneManager.CreateCustomTaskPane<ToolsShell, ShellViewModel>("Панел инструментов");
+                var ctPane = paneManager.CreateCustomTaskPane<ToolsShell, ShellViewModel>("Панель инструментов");
                 ctPane.Visible = true;
 
                 PanelHash[uniCod] = ctPane;

@@ -12,15 +12,22 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type vm:PrimaryProcessingsViewModel}">
-            <view:PrimaryProcessingsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:OptionsViewModel}">
-            <view:OptionsView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
-            <view:ProfileView />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\ScrollViewer.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type vm:PrimaryProcessingsViewModel}">
+                <view:PrimaryProcessingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:OptionsViewModel}">
+                <view:OptionsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+                <view:ProfileView />
+            </DataTemplate>
+
+        </ResourceDictionary>
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="Обработка"

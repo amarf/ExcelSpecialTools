@@ -34,36 +34,7 @@ namespace ExcelAnalysisTools.Model
 
         public WorkSheetProfile()
         {
-            Items = new ObservableCollection<WorkSheetProfileItem>
-            {
-                new WorkSheetProfileItem { Name="ЭС" , Column = -1},
-                new WorkSheetProfileItem { Name="ТС" , Column = -1},
-                new WorkSheetProfileItem { Name="ГС" , Column = -1},
-                new WorkSheetProfileItem { Name="ХВС" , Column = -1},
-                new WorkSheetProfileItem { Name="ГВС" , Column = -1},
-                new WorkSheetProfileItem { Name="ВО" , Column = -1},
-                new WorkSheetProfileItem { Name="Фундамент" , Column = -1},
-                new WorkSheetProfileItem { Name="АППЗ" , Column = -1},
-                new WorkSheetProfileItem { Name="Подвал" , Column = -1},
-                new WorkSheetProfileItem { Name="Лифты" , Column = -1},
-                new WorkSheetProfileItem { Name="Крыша" , Column = -1},
-                new WorkSheetProfileItem { Name="Фасад" , Column = -1},
-                new WorkSheetProfileItem { Name="РАСК" , Column = -1},
-                new WorkSheetProfileItem { Name="ПД" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД ЭС" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД ТС" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД ГС" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД ХВС" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД ГВС" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД ВО" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД Фундамент" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД АППЗ" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД Подвал" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД Лифты" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД Крыша" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД Фасад" , Column = -1},
-                new WorkSheetProfileItem { Name="ПСД РАСК" , Column = -1},
-            };
+            
         }
 
 
@@ -72,7 +43,37 @@ namespace ExcelAnalysisTools.Model
             return new WorkSheetProfile
             {
                 ProfileName = "Новый профиль",
-                WorksheetName = WorkSheetName
+                WorksheetName = WorkSheetName,
+                Items = new ObservableCollection<WorkSheetProfileItem>
+                {
+                    new WorkSheetProfileItem { Name="ЭС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ТС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ГС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ХВС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ГВС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ВО" , Column = 0},
+                    new WorkSheetProfileItem { Name="Фундамент" , Column = 0},
+                    new WorkSheetProfileItem { Name="АППЗ" , Column = 0},
+                    new WorkSheetProfileItem { Name="Подвал" , Column = 0},
+                    new WorkSheetProfileItem { Name="Лифты" , Column = 0},
+                    new WorkSheetProfileItem { Name="Крыша" , Column = 0},
+                    new WorkSheetProfileItem { Name="Фасад" , Column = 0},
+                    new WorkSheetProfileItem { Name="РАСК" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПД" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД ЭС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД ТС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД ГС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД ХВС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД ГВС" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД ВО" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД Фундамент" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД АППЗ" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД Подвал" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД Лифты" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД Крыша" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД Фасад" , Column = 0},
+                    new WorkSheetProfileItem { Name="ПСД РАСК" , Column = 0},
+                }
             };
         }
     }

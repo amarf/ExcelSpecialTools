@@ -1,6 +1,7 @@
 ﻿using Commander;
 using Core.Interfaces;
 using ExcelAnalysisTools.Model;
+using ExcelAnalysisTools.Services;
 using Microsoft.Practices.ServiceLocation;
 using PropertyChanged;
 using System;
@@ -17,45 +18,38 @@ namespace ExcelAnalysisTools.ViewModel
     [ImplementPropertyChanged]
     public class AddressListViewModel
     {
-        private readonly IOptionsService _optionsService;
-        private readonly IDataService _dataService;
         private readonly IServiceLocator _serviceLocator;
         private readonly IUserMsgService _userMsgService;
+        private readonly Repository _repository;
 
-        public AddressList Data { get; private set; }
         public ICollectionView Items { get; private set; }
         public string FindText { get; set; } = "";
         private CollectionViewSource CVS;
 
-        public AddressListViewModel(IServiceLocator serviceLocator, IOptionsService optionsService, IDataService dataService, IUserMsgService userMsgService)
+        public AddressListViewModel(IServiceLocator serviceLocator, IUserMsgService userMsgService, Repository repository)
         {
             _serviceLocator = serviceLocator;
-            _optionsService = optionsService;
-            _dataService = dataService;
             _userMsgService = userMsgService;
+            _repository = repository;
 
-            LoadData();
-
+            createView();
 
             (this as INotifyPropertyChanged).PropertyChanged += (obj, args) => { if (args.PropertyName == nameof(FindText)) Items?.Refresh(); };
+            (repository as INotifyPropertyChanged).PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == "AddressList")
+                    createView();
+            };
         }
 
-        private void LoadData()
+        private void createView()
         {
-            try
-            {
-                Data = _dataService.DeserializeObject<AddressList>(_optionsService.AddressListPath);
-                CVS = new CollectionViewSource();
-                CVS.Source = Data.Items;
-                CVS.View.Filter = FilterMethod;
-                Items = CVS.View;
-            }
-            catch (Exception e)
-            {
-                var errorMsg = string.IsNullOrWhiteSpace(e.InnerException?.Message) ? e.Message : e.InnerException?.Message;
-                _userMsgService.MsgShow("Ошибка загрузки списка: " + errorMsg);
-            }
+            CVS = new CollectionViewSource();
+            CVS.Source = _repository.AddressList.Items;
+            CVS.View.Filter = FilterMethod;
+            Items = CVS.View;
         }
+
 
         private bool FilterMethod(object obj)
         {
@@ -71,15 +65,7 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("SaveListCommand")]
         private void SaveList()
         {
-            try
-            {
-                _dataService.SerializeObject(Data, _optionsService.AddressListPath);
-            }
-            catch (Exception e)
-            {
-                var errorMsg = string.IsNullOrWhiteSpace(e.InnerException?.Message) ? e.Message : e.InnerException?.Message;
-                _userMsgService.MsgShow("Ошибка не удалось сохранить список: " + errorMsg);
-            }
+            
         }
     }
 }
