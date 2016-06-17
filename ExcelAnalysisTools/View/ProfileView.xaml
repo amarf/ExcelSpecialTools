@@ -97,7 +97,7 @@
                                                    HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
                                                    VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}">
                                             <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} = {1}">
+                                                <MultiBinding StringFormat="{}Наименование: {0} ; Столбец: {1}">
                                                     <Binding Path="Name" />
                                                     <Binding Path="Column" />
                                                 </MultiBinding>
@@ -107,12 +107,17 @@
                                 </Border>
                             </RadioButton.Content>
                         </RadioButton>
+
+
+
+
                     </DockPanel>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type model:WorkSheetProfile}">
                     <Grid Background="White">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -140,49 +145,68 @@
                                           CommandParameter="{Binding}" />
                         </UniformGrid>
 
+
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
                                    Margin="3"
+                                   VerticalAlignment="Center"
                                    Text="Имя профиля" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   Text="Имя листа" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
                                  Margin="3"
                                  Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Имя листа" />
                         <TextBox Grid.Row="2"
                                  Grid.Column="1"
                                  Margin="3"
                                  Text="{Binding WorksheetName, UpdateSourceTrigger=PropertyChanged}" />
 
+
+
                         <TextBlock Grid.Row="3"
                                    Grid.Column="0"
                                    Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Печатать отчет" />
+                        <CheckBox Grid.Row="3"
+                                  Grid.Column="1"
+                                  Margin="3"
+                                  IsChecked="{Binding IsPrintResult}" />
+
+                        <TextBlock Grid.Row="4"
+                                   Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
                                    Text="Первая ячейка с районом" />
-                        <ToggleButton Grid.Row="3"
+                        <ToggleButton Grid.Row="4"
                                       Grid.Column="1"
                                       Margin="3"
                                       DockPanel.Dock="Right"
                                       Content="{Binding FirstDistrictCell.Address}"
                                       IsChecked="{Binding DataContext.IsFirstDistrictCell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
 
-                        <TextBlock Grid.Row="4"
+                        <TextBlock Grid.Row="5"
                                    Grid.Column="0"
                                    Margin="3"
+                                   VerticalAlignment="Center"
                                    Text="Первая ячейка с адресом" />
-                        <ToggleButton Grid.Row="4"
+                        <ToggleButton Grid.Row="5"
                                       Grid.Column="1"
                                       Margin="3"
                                       DockPanel.Dock="Right"
                                       Content="{Binding FirstAddressCell.Address}"
                                       IsChecked="{Binding DataContext.IsFirstAddressCell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-                        <TextBlock Grid.Row="5"
+                        <TextBlock Grid.Row="6"
                                    Grid.Column="0"
                                    Margin="3"
+                                   VerticalAlignment="Center"
                                    Text="Последняя ячейка с адресом" />
-                        <ToggleButton Grid.Row="5"
+                        <ToggleButton Grid.Row="6"
                                       Grid.Column="1"
                                       Margin="3"
                                       Content="{Binding LastAddressCell.Address}"
@@ -190,7 +214,7 @@
 
 
 
-                        <ListBox Grid.Row="6"
+                        <ListBox Grid.Row="7"
                                  Grid.ColumnSpan="2"
                                  Margin="3"
                                  HorizontalContentAlignment="Stretch"

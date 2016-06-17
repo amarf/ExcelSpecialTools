@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ExcelAnalysisTools.View
 {
     /// <summary>
-    /// Логика взаимодействия для AddressToAddress.xaml
+    /// Логика взаимодействия для NotFoundView.xaml
     /// </summary>
-    public partial class AddressToAddress : UserControl
+    public partial class NotFoundView : UserControl
     {
-        public AddressToAddress()
+        public NotFoundView()
         {
             InitializeComponent();
         }

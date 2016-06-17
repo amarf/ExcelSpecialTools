@@ -24,7 +24,13 @@ namespace ExcelAnalysisTools.ViewModel
 
         public ICollectionView Items { get; private set; }
         public string FindText { get; set; } = "";
+        public string newAddress { get; set; }
+        public string newDistrict { get; set; }
+
+
         private CollectionViewSource CVS;
+
+
 
         public AddressListViewModel(IServiceLocator serviceLocator, IUserMsgService userMsgService, Repository repository)
         {
@@ -41,7 +47,6 @@ namespace ExcelAnalysisTools.ViewModel
                     createView();
             };
         }
-
         private void createView()
         {
             CVS = new CollectionViewSource();
@@ -49,8 +54,6 @@ namespace ExcelAnalysisTools.ViewModel
             CVS.View.Filter = FilterMethod;
             Items = CVS.View;
         }
-
-
         private bool FilterMethod(object obj)
         {
             if (string.IsNullOrWhiteSpace(FindText)) return true;
@@ -63,9 +66,21 @@ namespace ExcelAnalysisTools.ViewModel
         }
 
         [OnCommand("SaveListCommand")]
-        private void SaveList()
+        private void SaveList()=> _repository.Save<AddressList>();
+
+
+        [OnCommand("AddNewAddressCommand")]
+        private void AddNewAddress()
         {
-            
+            _repository.AddressList.Items.Add(new AddressModel
+            {
+                Address = newAddress,
+                District = newDistrict
+            });
         }
+
+        [OnCommandCanExecute("AddNewAddressCommand")]
+        private bool AddNewAddressCanExecute() => !string.IsNullOrWhiteSpace(newAddress) && !string.IsNullOrWhiteSpace(newDistrict);
+
     }
 }

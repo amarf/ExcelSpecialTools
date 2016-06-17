@@ -18,17 +18,52 @@
 
         <DockPanel Grid.Row="1">
             <DockPanel DockPanel.Dock="Top">
-                <Button Margin="3"
-                        Content="+"
-                        Padding="12,0"
-                        DockPanel.Dock="Right" />
                 <TextBox Margin="3"
                          Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"
                          DockPanel.Dock="Left" />
             </DockPanel>
+
+            <DockPanel DockPanel.Dock="Bottom">
+                <TextBlock Margin="3"
+                           DockPanel.Dock="Top"
+                           Text="Добавить новый адрес" />
+                <Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                        Margin="3"
+                        Command="{Binding AddNewAddressCommand}"
+                        Content="Ok"
+                        DockPanel.Dock="Right" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Margin="3"
+                               Text="Адрес" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             Margin="3"
+                             Text="{Binding newAddress, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="3"
+                               Text="Район" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Margin="3"
+                             Text="{Binding newDistrict, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+
+            </DockPanel>
             <DataGrid Margin="3"
                       DockPanel.Dock="Bottom"
                       ItemsSource="{Binding Items}" />
+
         </DockPanel>
     </Grid>
 </UserControl>

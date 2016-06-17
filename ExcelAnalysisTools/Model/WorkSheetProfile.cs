@@ -14,6 +14,9 @@ namespace ExcelAnalysisTools.Model
         [XmlIgnore]
         public bool IsActive { get; set; }
 
+        [XmlAttribute("isPrintResult")]
+        public bool IsPrintResult { get; set; }
+
         [XmlAttribute("profileName")]
         public string ProfileName { get; set; }
 

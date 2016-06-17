@@ -145,6 +145,7 @@
     <Compile Include="Services\UserMsgService.cs" />
     <Compile Include="ViewModel\AddressListViewModel.cs" />
     <Compile Include="ViewModel\AddressToAddressViewModel.cs" />
+    <Compile Include="ViewModel\NotFoundViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\RegexListViewModel.cs" />
@@ -152,6 +153,9 @@
     <Compile Include="ViewModel\PrimaryProcessingsViewModel.cs" />
     <Compile Include="View\AddressToAddress.xaml.cs">
       <DependentUpon>AddressToAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NotFoundView.xaml.cs">
+      <DependentUpon>NotFoundView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
@@ -239,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddressToAddress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NotFoundView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

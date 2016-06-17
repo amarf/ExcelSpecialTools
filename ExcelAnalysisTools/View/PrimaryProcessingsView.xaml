@@ -20,65 +20,48 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Margin="3"
-                   Text="Столбец - Район" />
 
-
-        <ToggleButton Grid.Row="0"
-                      Grid.Column="1"
-                      Margin="3"
-                      VerticalAlignment="Stretch"
-                      Command="{Binding SelectDistrictColumnCommand}"
-                      CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
-                      IsChecked="{Binding IsSelectDistrictColumn}">
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}C{0}:R{1}">
-                        <Binding Mode="OneWay"
-                                 Path="Column_DistrictNumber" />
-                        <Binding Mode="OneWay"
-                                 Path="Row_DistrictStartNumber" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-        </ToggleButton>
         <TextBlock Grid.Row="1"
                    Margin="3"
-                   Text="Столбец - Адрес" />
-        <ToggleButton Grid.Row="1"
-                      Grid.Column="1"
-                      Margin="3"
-                      VerticalAlignment="Stretch"
-                      Command="{Binding SelectAddressColumnCommand}"
-                      CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
-                      IsChecked="{Binding IsSelectAddressColumn}">
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}C{0}:R{1}">
-                        <Binding Mode="OneWay"
-                                 Path="Column_AddressNumber" />
-                        <Binding Mode="OneWay"
-                                 Path="Row_AddressStartNumber" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-        </ToggleButton>
+                   Text="Ключевое слово - район" />
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 Margin="3"
+                 Text="{Binding DistrictKeyWord, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Row="2"
                    Margin="3"
-                   Text="Замена" />
+                   Text="Замена - район" />
         <TextBox Grid.Row="2"
                  Grid.Column="1"
                  Margin="3"
-                 Text="{Binding DistrictReplace}" />
-        <Button Grid.Row="3"
+                 Text="{Binding DistrictReplace, UpdateSourceTrigger=PropertyChanged}" />
+        <DockPanel Grid.Row="3"
+                   Grid.ColumnSpan="2">
+            <Button Margin="3"
+                    DockPanel.Dock="Right"
+                    Command="{Binding ShowFirstResultCommand}"
+                    Content="..."
+                    Padding="12,0" />
+            <Button x:Name="but1"
+                    Margin="3"
+                    DockPanel.Dock="Left"
+                    Command="{Binding FirstMarcosCommand}"
+                    Content="1 этап" />
+        </DockPanel>
+
+
+
+        <Button Grid.Row="4"
                 Grid.ColumnSpan="2"
+                Width="{Binding ElementName=but1, Path=ActualWidth}"
                 Margin="3"
-                Command="{Binding StartDistrictMarcosCommand}"
-                Content="Start district tool" />
+                HorizontalAlignment="Left"
+                DockPanel.Dock="Left"
+                Command="{Binding SecontMarcosCommand}"
+                Content="2 этап" />
     </Grid>
 </UserControl>
