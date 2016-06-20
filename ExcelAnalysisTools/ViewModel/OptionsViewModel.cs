@@ -124,5 +124,13 @@ namespace ExcelAnalysisTools.ViewModel
             if (_fileBrowserDialog.ShowDialog())
                 _repository.Create<RegexExpressionList>(_fileBrowserDialog.SelectedPath);
         }
+
+
+        //не согласуется с обновлением данных во вьюшках
+        //[OnCommand("ReLoadAllCommand")]
+        //private void ReLoadAll()
+        //{
+        //    _repository.ReLoad();
+        //}
     }
 }

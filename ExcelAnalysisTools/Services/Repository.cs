@@ -41,6 +41,21 @@ namespace ExcelAnalysisTools.Services
         public T Create<T>(string path) where T : class => TryCreateData<T>(path);
         public T Load<T>(string path) where T : class => TryLoadData<T>(path);
 
+        public void ReLoad()
+        {
+            try
+            {
+                Load<Options>(_options.GetDataPath<Options>());
+                Load<AddressList>(_options.GetDataPath<AddressList>());
+                Load<RegexExpressionList>(_options.GetDataPath<RegexExpressionList>());
+                Load<ProfileList>(_options.GetDataPath<ProfileList>());
+            }
+            catch (Exception e)
+            {
+                _userMsgService.MsgShow("Произошла ошибка при чтении данных");
+            }
+        }
+
         private T GetIns<T>(ref T obj) where T : class
         {
             if (obj == null)

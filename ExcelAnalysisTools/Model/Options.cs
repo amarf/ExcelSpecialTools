@@ -34,7 +34,7 @@ namespace ExcelAnalysisTools.Model
 
         public void SetDataPath<T>(string path)
         {
-            var property = GetProperty<T>();
+            var property = typeof(T).Name != "Options" ? GetProperty<T>() : null;
             if (property!=null)
                 property.SetValue(this, path);
         }

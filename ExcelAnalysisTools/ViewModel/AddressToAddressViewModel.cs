@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Commander;
+using System.Text.RegularExpressions;
 
 namespace ExcelAnalysisTools.ViewModel
 {
@@ -51,10 +52,16 @@ namespace ExcelAnalysisTools.ViewModel
         private string getFindText(string address)
         {
             var ret_val = "";
-            foreach (var item in address.Split(' ', '.', ',', ':'))
-            {
-                if (item.Length > 3) ret_val += item + " ";
-            }
+
+            var liter = Regex.Replace(address, @"(.*?)(литер[а]{0,1})\s+([0-1А-Яа-яA-Za-z,]+)", @"литер $3");
+            var Befor_liter = Regex.Match(address, @".*(?=литер[а]{0,1}\s+)").Value;
+
+            var mathes = Regex.Matches(Befor_liter, @"(\d+)|(\w{4,})");
+            foreach (Match math in mathes)
+                ret_val += math.Value + " ";
+            ret_val = ret_val.Trim() + " " + liter.Trim();
+
+
             return ret_val;
         }
 
@@ -103,7 +110,7 @@ namespace ExcelAnalysisTools.ViewModel
             foreach (var item in list.Where(i => !string.IsNullOrWhiteSpace(i.Uid)).ToList())
             {
                 Guid guid;
-                if(Guid.TryParse("0bff392f-07eb-4b52-8245-77556c9be8fa", out guid))
+                if(Guid.TryParse(item.Uid, out guid))
                     item.Number = BitConverter.ToInt64(guid.ToByteArray(), 0);
             }
 

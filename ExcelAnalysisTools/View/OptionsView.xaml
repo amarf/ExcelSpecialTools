@@ -35,6 +35,7 @@
             <Button Margin="3"
                     Command="{Binding CreateRegexListCommand}"
                     Content="Создать файл выражений" />
+
         </StackPanel>
     </Grid>
 </UserControl>
