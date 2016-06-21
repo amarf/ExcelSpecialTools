@@ -111,7 +111,7 @@ namespace ExcelAnalysisTools.ViewModel
             {
                 Guid guid;
                 if(Guid.TryParse(item.Uid, out guid))
-                    item.Number = BitConverter.ToInt64(guid.ToByteArray(), 0);
+                    item.Number = BitConverter.ToInt32(guid.ToByteArray(), 0);
             }
 
             return list

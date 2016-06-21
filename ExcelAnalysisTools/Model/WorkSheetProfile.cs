@@ -35,11 +35,15 @@ namespace ExcelAnalysisTools.Model
         [XmlArray("columns"), XmlArrayItem("column")]
         public ObservableCollection<WorkSheetProfileItem> Items { get; set; }
 
-        public WorkSheetProfile()
-        {
-            
-        }
 
+        public int? GetLastColumn()
+        {
+            return Items?.Max(i => i.Column) == 0 ? null : Items?.Max(i => i.Column);
+        }
+        public int? GetLastRow()
+        {
+            return LastAddressCell?.Row == 0 ? null : LastAddressCell?.Row;
+        }
 
         public static WorkSheetProfile Create(string WorkSheetName = null)
         {

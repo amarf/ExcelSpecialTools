@@ -151,6 +151,9 @@
     <Compile Include="ViewModel\RegexListViewModel.cs" />
     <Compile Include="ViewModel\ShellViewModel.cs" />
     <Compile Include="ViewModel\PrimaryProcessingsViewModel.cs" />
+    <Compile Include="ViewModel\vmServices\Class1.cs" />
+    <Compile Include="ViewModel\vmServices\Class2.cs" />
+    <Compile Include="ViewModel\vmServices\WorkObject.cs" />
     <Compile Include="View\AddressToAddress.xaml.cs">
       <DependentUpon>AddressToAddress.xaml</DependentUpon>
     </Compile>

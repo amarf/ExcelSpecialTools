@@ -17,6 +17,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Collections;
+using ExcelAnalysisTools.ViewModel.vmServices;
+
 
 namespace ExcelAnalysisTools.ViewModel
 {
@@ -116,6 +118,65 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("FirstMarcosCommand")]
         public void StartDistrictMarcos()
         {
+
+            var class1 = _serviceLocator.GetInstance<Class1>();
+            var class2 = _serviceLocator.GetInstance<Class2>();
+            var data = class1.CollectData();
+
+            //var sb = new StringBuilder();
+            //foreach (var wo1 in data)
+            //{
+            //    foreach (var item in wo1.Addresses)
+            //    {
+            //        foreach (DictionaryEntry hash in item.GetDataTable())
+            //        {
+            //            var line = $"{item.Address}\t{item.District}\t{item.Number}\t{hash.Key}\t{hash.Value}";
+            //            sb.AppendLine(line);
+            //        }
+            //    }
+            //}
+
+            //System.Windows.Clipboard.Clear();
+            //System.Windows.Clipboard.SetText(sb.ToString());
+
+            //return;
+
+            var table = class2.GoWork(data);
+
+
+            var sb = new StringBuilder();
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                string line = "";
+
+                for (int j= 0; j < table.Columns.Count; j++)
+                {
+                    var item = table.Rows[i][j];
+                    line += $"{item}\t";
+                }
+                sb.AppendLine(line);
+            }
+
+            System.Windows.Clipboard.Clear();
+            System.Windows.Clipboard.SetText(sb.ToString());
+
+            object[,] result = new object[table.Rows.Count + 1, table.Columns.Count];
+          
+
+            for (int i = 0; i < table.Rows.Count; i++)
+                for (int j = 0; j < table.Columns.Count; j++)
+                    if (i == 0)
+                        result[i, j] = table.Columns[j].ColumnName;
+                    else
+                        result[i, j] = table.Rows[i][j];
+
+            _excelApplication.Worksheets.Add(After: _excelApplication.Worksheets[_excelApplication.Worksheets.Count]).Name = "FFFDDDAAA";
+            var newSheet = _excelApplication.Worksheets["FFFDDDAAA"] as Worksheet;
+            WriteArray(result, newSheet);
+
+
+            return;
+
             IsFirstComplite = false;
            
 

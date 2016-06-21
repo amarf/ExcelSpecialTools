@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +20,13 @@ namespace ExcelAnalysisTools.Model
         [XmlAttribute("uid")]
         public string Uid { get; set; } = Guid.NewGuid().ToString();
         [XmlAttribute("description")]
-        public string Description { get; set; } = Guid.NewGuid().ToString();
+        public string Description { get; set; } 
 
         [XmlIgnore]
         public string Regex { get; set; }
 
         [XmlIgnore]
-        public long Number { get; set; }
+        public int Number { get; set; }
 
 
         private Hashtable DataTable { get; } = new Hashtable();
@@ -39,24 +40,28 @@ namespace ExcelAnalysisTools.Model
             return (string)DataTable[dataName];
         }
 
+        public double GetData(string dataName, bool IsDouble, out string errorConverMsg)
+        {
+            errorConverMsg = "";
+            string cur_val = GetData(dataName);
+
+            if (cur_val.Trim() == "-" || cur_val == "0" || string.IsNullOrWhiteSpace(cur_val) || cur_val == null) //cur_val==null вообще ошибка разработки - такого не должно быть
+                return 0.0;
+
+            double ret_val = 0.0;
+            if (double.TryParse(cur_val, NumberStyles.Any, CultureInfo.CurrentCulture, out ret_val))
+            {
+                if (ret_val > 200000000)
+                    errorConverMsg = $"Внимание! Большое число! [{ret_val}]";
+                return ret_val;
+            }
+
+            errorConverMsg = $"не удалось преобразовать значение [{cur_val}]";
+            return 0;
+        }
+
         public Hashtable GetDataTable()
         {
-            //object[,] array = new object[6 + 2, DataTable.Count];
-
-            //var row = 0;
-            //foreach (DictionaryEntry cell in DataTable)
-            //{
-            //    array[row, 0] = District;
-            //    array[row, 1] = Address;
-            //    array[row, 2] = Uid;
-            //    array[row, 3] = Description;
-            //    array[row, 4] = Regex;
-            //    array[row, 5] = Number;
-            //    array[row, 6] = cell.Key;
-            //    array[row, 7] = cell.Value;
-
-            //    row++;
-            //}
             return DataTable;
         }
 
