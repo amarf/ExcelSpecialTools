@@ -36,6 +36,14 @@ namespace ExcelAnalysisTools.Model
         public ObservableCollection<WorkSheetProfileItem> Items { get; set; }
 
 
+        [XmlElement("districtKeyWord")]
+        public string DistrictKeyWord { get; set; } = " район Санкт-Петербурга";
+        [XmlElement("districtWordReplace")]
+        public string DistrictWordReplace { get; set; } = " район Санкт-Петербурга";
+        [XmlElement("addressNotKeyWord")]
+        public string AddressNotKeyWord { get; set; } = "итого ";
+
+
         public int? GetLastColumn()
         {
             return Items?.Max(i => i.Column) == 0 ? null : Items?.Max(i => i.Column);

@@ -3,6 +3,7 @@ using System;
 using System.Xml.Serialization;
 using System.Linq;
 using System.Reflection;
+using System.IO;
 
 namespace ExcelAnalysisTools.Model
 {
@@ -16,12 +17,55 @@ namespace ExcelAnalysisTools.Model
         [XmlIgnore]
         public static string OptionsFileFullPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExcelToolsOptions.xml";
 
+        string _addressListPath;
+        string _regexListPath;
+        string _profileListPath;
+
         [XmlElement("addressPath")]
-        public string AddressListPath { get; set; }
+        public string AddressListPath
+        {
+            get
+            {
+                if (File.Exists(_addressListPath))
+                    return _addressListPath;
+                else
+                    return null;
+            }
+            set
+            {
+                _addressListPath = value;
+            }
+        }
         [XmlElement("regexPath")]
-        public string RegexListPath { get; set; }
+        public string RegexListPath
+        {
+            get
+            {
+                if (File.Exists(_regexListPath))
+                    return _regexListPath;
+                else
+                    return null;
+            }
+            set
+            {
+                _regexListPath = value;
+            }
+        }
         [XmlElement("profilePath")]
-        public string ProfileListPath { get; set; }
+        public string ProfileListPath
+        {
+            get
+            {
+                if (File.Exists(_profileListPath))
+                    return _profileListPath;
+                else
+                    return null;
+            }
+            set
+            {
+                _profileListPath = value;
+            }
+        }
 
 
         public string GetDataPath<T>()

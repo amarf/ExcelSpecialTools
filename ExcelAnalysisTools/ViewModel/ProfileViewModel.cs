@@ -10,6 +10,7 @@ using ExcelAnalysisTools.Model;
 using PropertyChanged;
 using ExcelDna.Integration;
 using Microsoft.Office.Interop.Excel;
+using System.ComponentModel;
 
 namespace ExcelAnalysisTools.ViewModel
 {
@@ -30,29 +31,15 @@ namespace ExcelAnalysisTools.ViewModel
             _fileBrowserDialog = fileBrowserDialog;
             _excelApplication = (Application)ExcelDnaUtil.Application;
             Data = _repository.ProfileList;
-        }
 
-        [OnCommand("CreateProfileListCommand")]
-        private void CreateProfileList()
-        {
-            _fileBrowserDialog.IsSaveFileDialog = true;
-            _fileBrowserDialog.Reset();
-            if (_fileBrowserDialog.ShowDialog())
+            (_repository as INotifyPropertyChanged).PropertyChanged += (sender, args) =>
             {
-                Data = _repository.Create<ProfileList>(_fileBrowserDialog.SelectedPath);
+                if (args.PropertyName == nameof(Repository.ProfileList))
+                    Data = _repository.ProfileList;
             };
         }
 
-        [OnCommand("LoadProfileListCommand")]
-        private void LoadProfileList()
-        {
-            _fileBrowserDialog.IsSaveFileDialog = false;
-            _fileBrowserDialog.Reset();
-            if (_fileBrowserDialog.ShowDialog())
-            {
-                Data = _repository.Load<ProfileList>(_fileBrowserDialog.SelectedPath);
-            };
-        }
+
         [OnCommand("NewProfileCommand")]
         private void NewProfile()
         {

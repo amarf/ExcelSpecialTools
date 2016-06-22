@@ -9,61 +9,98 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type model:WorkSheetProfile}">
-            <Border BorderThickness="0,0,0,1"
-                    BorderBrush="LightGray">
-                <DockPanel>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type model:WorkSheetProfile}">
+
+                <DockPanel x:Name="item">
                     <StackPanel Margin="12,3,6,3"
                                 Orientation="Horizontal"
                                 DockPanel.Dock="Right">
-                        <Button Margin="3"
-                                Content="x"
+                        <Button VerticalAlignment="Center"
+                                Style="{StaticResource LinkButton}"
                                 Command="{Binding DataContext.RemoveProfileCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                                CommandParameter="{Binding}" />
-                        <Button Margin="3"
-                                Content="e"
+                                CommandParameter="{Binding}">
+                            <TextBlock Text="&#xf014;"
+                                       FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
+                        </Button>
+                        <Button VerticalAlignment="Center"
+                                Style="{StaticResource LinkButton}"
                                 Command="{Binding DataContext.EditProfileCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                                CommandParameter="{Binding}" />
-                        <CheckBox Margin="3"
+                                CommandParameter="{Binding}">
+                            <TextBlock Text="&#xf085;"
+                                       FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
+
+                        </Button>
+                        <CheckBox Margin="6"
+                                  VerticalAlignment="Center"
                                   IsChecked="{Binding IsActive}" />
                     </StackPanel>
                     <StackPanel Margin="12,3,6,3"
                                 DockPanel.Dock="Left">
                         <TextBlock Text="{Binding ProfileName}"
-                                   TextTrimming="CharacterEllipsis" />
-                        <TextBlock Text="{Binding WorksheetName}" />
+                                   TextTrimming="CharacterEllipsis"
+                                   FontFamily="Segoe UI Semibold"
+                                   FontSize="14" />
+                        <TextBlock Text="{Binding WorksheetName, StringFormat=Лист: {0}}"
+                                   FontFamily="Segoe UI "
+                                   FontSize="12" />
                     </StackPanel>
                 </DockPanel>
-            </Border>
-        </DataTemplate>
+
+            </DataTemplate>
+
+
+            <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"
+                                             IsNullToVisible="True" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <Grid Background="White">
+        <Grid Visibility="{Binding EditData, Converter={StaticResource NullToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel>
-                <TextBlock Margin="3"
-                           Text="{Binding ProfileListPath}"
-                           ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"
-                           TextTrimming="CharacterEllipsis" />
-                <Button Margin="3"
-                        Command="{Binding CreateProfileListCommand}"
-                        Content="Создать список профилей" />
-                <Button Margin="3"
-                        Command="{Binding LoadProfileListCommand}"
-                        Content="Загрузить список профилей" />
-                <Button Margin="3"
-                        Command="{Binding NewProfileCommand}"
-                        Content="Новый профиль" />
-            </StackPanel>
+
+            <Button Margin="0,3,0,6"
+                    Command="{Binding NewProfileCommand}"
+                    Content="Новый профиль" />
+
 
             <ListBox Grid.Row="1"
-                     Margin="3"
+                     Margin="0,3"
                      HorizontalContentAlignment="Stretch"
-                     ItemsSource="{Binding Data.Items}" />
+                     AlternationCount="2"
+                     ItemsSource="{Binding Data.Items}">
+                <!--<ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="brd"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter Margin="{TemplateBinding Padding}" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                            <Setter Property="Background" Value="White" />
+                                        </Trigger>
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                            <Setter Property="Background" Value="#FFCCDEFD" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>-->
+            </ListBox>
 
         </Grid>
 
@@ -78,152 +115,9 @@
                 </Style>
             </ContentControl.Style>
             <ContentControl.Resources>
-
-                <DataTemplate DataType="{x:Type model:WorkSheetProfileItem}">
-                    <DockPanel>
-                        <Button Content="X"
-                                DockPanel.Dock="Right"
-                                Command="{Binding DataContext.ResetProfileItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
-                                CommandParameter="{Binding}" />
-                        <RadioButton IsTabStop="False"
-                                     DockPanel.Dock="Left"
-                                     GroupName=""
-                                     IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem, Mode=FindAncestor}}">
-                            <RadioButton.Content>
-                                <Border VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-                                        Padding="2">
-                                    <StackPanel>
-                                        <TextBlock Margin="{TemplateBinding Control.Padding}"
-                                                   HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
-                                                   VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}">
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}Наименование: {0} ; Столбец: {1}">
-                                                    <Binding Path="Name" />
-                                                    <Binding Path="Column" />
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Border>
-                            </RadioButton.Content>
-                        </RadioButton>
-
-
-
-
-                    </DockPanel>
-                </DataTemplate>
-
-                <DataTemplate DataType="{x:Type model:WorkSheetProfile}">
-                    <Grid Background="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-
-                        <UniformGrid Grid.Row="0"
-                                     Grid.ColumnSpan="2"
-                                     Rows="1">
-                            <Button Margin="3"
-                                    Content="Back"
-                                    Command="{Binding DataContext.BackCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-                            <ToggleButton Margin="3"
-                                          Content="Auto"
-                                          IsChecked="{Binding DataContext.IsAutoCommandBegin, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                          Command="{Binding DataContext.AutoCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                          CommandParameter="{Binding}" />
-                        </UniformGrid>
-
-
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   VerticalAlignment="Center"
-                                   Text="Имя профиля" />
-                        <TextBox Grid.Row="1"
-                                 Grid.Column="1"
-                                 Margin="3"
-                                 Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   VerticalAlignment="Center"
-                                   Text="Имя листа" />
-                        <TextBox Grid.Row="2"
-                                 Grid.Column="1"
-                                 Margin="3"
-                                 Text="{Binding WorksheetName, UpdateSourceTrigger=PropertyChanged}" />
-
-
-
-                        <TextBlock Grid.Row="3"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   VerticalAlignment="Center"
-                                   Text="Печатать отчет" />
-                        <CheckBox Grid.Row="3"
-                                  Grid.Column="1"
-                                  Margin="3"
-                                  IsChecked="{Binding IsPrintResult}" />
-
-                        <TextBlock Grid.Row="4"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   VerticalAlignment="Center"
-                                   Text="Первая ячейка с районом" />
-                        <ToggleButton Grid.Row="4"
-                                      Grid.Column="1"
-                                      Margin="3"
-                                      DockPanel.Dock="Right"
-                                      Content="{Binding FirstDistrictCell.Address}"
-                                      IsChecked="{Binding DataContext.IsFirstDistrictCell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-
-                        <TextBlock Grid.Row="5"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   VerticalAlignment="Center"
-                                   Text="Первая ячейка с адресом" />
-                        <ToggleButton Grid.Row="5"
-                                      Grid.Column="1"
-                                      Margin="3"
-                                      DockPanel.Dock="Right"
-                                      Content="{Binding FirstAddressCell.Address}"
-                                      IsChecked="{Binding DataContext.IsFirstAddressCell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-                        <TextBlock Grid.Row="6"
-                                   Grid.Column="0"
-                                   Margin="3"
-                                   VerticalAlignment="Center"
-                                   Text="Последняя ячейка с адресом" />
-                        <ToggleButton Grid.Row="6"
-                                      Grid.Column="1"
-                                      Margin="3"
-                                      Content="{Binding LastAddressCell.Address}"
-                                      IsChecked="{Binding DataContext.IsLastAddressCell, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
-
-
-
-                        <ListBox Grid.Row="7"
-                                 Grid.ColumnSpan="2"
-                                 Margin="3"
-                                 HorizontalContentAlignment="Stretch"
-                                 ScrollViewer.CanContentScroll="False"
-                                 SelectedItem="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                                 ItemsSource="{Binding Items}" />
-
-
-                    </Grid>
+                <DataTemplate xmlns:view="clr-namespace:ExcelAnalysisTools.View"
+                              DataType="{x:Type model:WorkSheetProfile}">
+                    <view:ProfileEditorView DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}" />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

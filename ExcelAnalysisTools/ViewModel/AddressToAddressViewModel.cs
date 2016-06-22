@@ -84,7 +84,7 @@ namespace ExcelAnalysisTools.ViewModel
         }
         private bool FilterMethod_found(object obj)
         {
-            return string.IsNullOrWhiteSpace((obj as AddressModel).Uid);
+            return (obj as AddressModel).Number < 1;
         }
 
         public AddressModel NotFoundSelectedItem { get; set; }
@@ -123,6 +123,8 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("SetUidToNotFoundItemCommand")]
         private void SetUidToNotFoundItem(AddressModel globalAddress)
         {
+            SelectedNotFoundItem.Number = globalAddress.Number;
+            SelectedNotFoundItem.KgiopStatus = globalAddress.KgiopStatus;
             SelectedNotFoundItem.Uid = globalAddress.Uid;
             NotFoundItems.Refresh();
         }

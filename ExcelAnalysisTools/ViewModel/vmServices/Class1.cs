@@ -18,6 +18,8 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
     //и сам список этих данных List<WorkObject>
     public class Class1
     {
+        string lastDistrict = "";
+
         private readonly Application _excelApplication;
         private readonly Repository _repository;
         private readonly IUserMsgService _userMsgService;
@@ -34,19 +36,28 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
 
         public IList<WorkObject> CollectData() //мы должны сдесь создать адрессные списки
         {
+            var workObjList = GetActiveProfiles(_repository.ProfileList.Items);
+            if (workObjList.Count == 0)
+                return null;
+
             if (!ApplyRegexToAddresses())
             {
                 _userMsgService.MsgShow($"Не удалось применить шаблоны Regex к адресному списку. Операция прервана.");
                 return null;
             }
 
-            var workObjList = GetActiveProfiles(_repository.ProfileList.Items);
+            
 
             foreach (var workObj in workObjList)
             {
+                if(!profileCheck(workObj.Profile))
+                {
+                    _userMsgService.MsgShow($"Профиль [{workObj.Profile.ProfileName}] исключен из обработки из-за ошибок воода (debug: Class1 profileCheck)");
+                    continue;
+                }
                 if(workObj.ActiveRange == null)
                 {
-                    _userMsgService.MsgShow($"При обработке профиля [{workObj.Profile.ProfileName}] произошли ошибки (debug: WorkObject class)");
+                    _userMsgService.MsgShow($"При обработке профиля [{workObj.Profile.ProfileName}] произошли ошибки (debug: WorkObject class - ActiveRange == null)");
                     continue;
                 }
 
@@ -83,7 +94,7 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
             foreach (var adr in _repository.AddressList.Items)
             {
                 adr.Regex = null; //обнуляем если вдруг до этого были записаны значения
-                adr.Number = lastNumber++;
+                adr.Number = ++lastNumber;
                 foreach (var rgx in _repository.RegexList.Items)
                     adr.Regex = string.IsNullOrWhiteSpace(adr.Regex)
                         ? Regex.Replace(adr.Address, rgx.Expression, rgx.ReplceExpression)
@@ -123,13 +134,13 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
         private void CollectDataFromProfile(WorkObject workObj)
         {
             workObj.Addresses.Clear();
-            string districtKeyWord = " район Санкт-Петербурга";
-            string addressNotKeyWord = "итого ";
-            string districtWordReplace = " район Санкт-Петербурга";
-            string lastDistrict = "";
+           
 
             var distColumn = workObj.Profile.FirstDistrictCell.Column;
             var adrColumn = workObj.Profile.FirstAddressCell.Column;
+            var districtKeyWord = workObj.Profile.DistrictKeyWord;
+            var districtWordReplace = workObj.Profile.DistrictWordReplace;
+            var addressNotKeyWord = workObj.Profile.AddressNotKeyWord;
 
             Dictionary<string, int> regValuesCount = new Dictionary<string, int>(); //проверка на уникальность
 
@@ -140,13 +151,22 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                 var district = workObj.ActiveRange[row, distColumn] + "";
                 var address = workObj.ActiveRange[row, adrColumn] + "";
 
-                if (district.Contains(districtKeyWord))
+                if (districtKeyWord.Length > 0 && district.Contains(districtKeyWord))
                     lastDistrict = district.Replace(districtWordReplace, "");
+                else if(districtKeyWord.Length == 0)
+                    lastDistrict = district;
 
-                if (!address.ToLower().Contains(addressNotKeyWord.ToLower()) && !string.IsNullOrWhiteSpace(address))
+                if ( !string.IsNullOrWhiteSpace(address))
                 {
-                    adr = GetNewAddress(lastDistrict, address, row, workObj);
-                    workObj.Addresses.Add(adr);
+                    if (addressNotKeyWord.Length > 0 && address.ToLower().Contains(addressNotKeyWord.ToLower()))
+                    {
+
+                    }
+                    else 
+                    {
+                        adr = GetNewAddress(lastDistrict, address, row, workObj);
+                        workObj.Addresses.Add(adr);
+                    }
                 }
 
                 //проверить на уникальность
@@ -183,7 +203,11 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
             {
                 var findAdr = _repository.AddressList.Items.FirstOrDefault(i => i.Regex == adr.Regex);
                 if (findAdr != null)
+                {
                     adr.Number = findAdr.Number;
+                    adr.KgiopStatus = findAdr.KgiopStatus;
+                    adr.Uid = findAdr.Uid;
+                }
             }
 
             return adr;
@@ -214,6 +238,21 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                     break;
                 }
             return workSheet;
-        } 
+        }
+
+        /// <summary>
+        /// Сообщает об удачной проверке целостности данных профиля
+        /// </summary>
+        private bool profileCheck(WorkSheetProfile profile)
+        {
+            return
+                profile.FirstAddressCell.Row > 0 &&
+                profile.FirstAddressCell.Column > 0 &&
+                profile.LastAddressCell.Row > 0 &&
+                profile.LastAddressCell.Column > 0 &&
+                profile.FirstDistrictCell.Row > 0 &&
+                profile.FirstDistrictCell.Column > 0;
+        }
+
     }
 }

@@ -57,13 +57,15 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
 
             dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Район", DataType = typeof(string) });
             dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Адрес", DataType = typeof(string) });
+            dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Статус КГИОП", DataType = typeof(string) });
+            dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Uid", DataType = typeof(string) });
             dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Вид работ", DataType = typeof(string) });
 
             for (int i = 0; i < workObjList.Count; i++)
                 dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Стоимость по " + workObjList[i].Profile.ProfileName, DefaultValue = 0, DataType=typeof(double) });
 
             dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Примечание", DataType = typeof(string) });
-            dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Индификатор", DataType = typeof(string) });
+            dt.Columns.Add(new System.Data.DataColumn { ColumnName = "Описание", DataType = typeof(string) });
 
             return dt;
         }
@@ -77,7 +79,9 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                 table.Rows.Add(row);
                 row[0] = curentMinNumberAdr.District;
                 row[1] = curentMinNumberAdr.Address;
-                row[2] = key;
+                row[2] = curentMinNumberAdr.KgiopStatus;
+                row[3] = curentMinNumberAdr.Uid;
+                row[4] = key;
 
                 for (int i = 0; i < workObjList.Count; i++)
                 {
@@ -88,16 +92,16 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                         var address = wobj.Addresses[wobj.Counter];
                         if (address.Number > curentMinNumberAdr.Number)
                         {
-                            row[i + 3] = 0;
-                            row[3 + workObjList.Count] += $"Адрес и работа исключены из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
+                            row[i + 5] = 0;
+                            row[5 + workObjList.Count] += $"Адрес и работа исключены из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
                         }
                         else if (address.Number == curentMinNumberAdr.Number)
                         {
 
                             string errorConverMsg;
-                            row[i + 3] = address.GetData(key, true, out errorConverMsg);
+                            row[i + 5] = address.GetData(key, true, out errorConverMsg);
                             if (!string.IsNullOrWhiteSpace(errorConverMsg))
-                                row[3 + workObjList.Count] += errorConverMsg + "; ";
+                                row[5 + workObjList.Count] += errorConverMsg + $"[{wobj.Profile.ProfileName}]; ";
 
                             if (!updateCounterList.Contains(wobj))
                                 updateCounterList.Add(wobj);
@@ -107,8 +111,8 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                     }
                     else
                     {
-                        row[i + 3] = 0;
-                        row[3 + workObjList.Count] += $"Адрес и работа исключены из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
+                        row[i + 5] = 0;
+                        row[5 + workObjList.Count] += $"Адрес и работа исключены из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
                     }
                 }
             }

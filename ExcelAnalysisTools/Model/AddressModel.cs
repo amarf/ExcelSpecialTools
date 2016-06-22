@@ -15,10 +15,16 @@ namespace ExcelAnalysisTools.Model
     {
         [XmlAttribute("name")]
         public string Address { get; set; }
+
         [XmlAttribute("district")]
         public string District { get; set; }
+
+        [XmlAttribute("kgiopStatus")]
+        public string KgiopStatus { get; set; }
+
         [XmlAttribute("uid")]
-        public string Uid { get; set; } = Guid.NewGuid().ToString();
+        public string Uid { get; set; }
+
         [XmlAttribute("description")]
         public string Description { get; set; } 
 
@@ -30,7 +36,6 @@ namespace ExcelAnalysisTools.Model
 
 
         private Hashtable DataTable { get; } = new Hashtable();
-
         public void SetData(string dataName, string value)
         {
             DataTable[dataName] = value;
@@ -39,7 +44,6 @@ namespace ExcelAnalysisTools.Model
         {
             return (string)DataTable[dataName];
         }
-
         public double GetData(string dataName, bool IsDouble, out string errorConverMsg)
         {
             errorConverMsg = "";
@@ -59,18 +63,14 @@ namespace ExcelAnalysisTools.Model
             errorConverMsg = $"не удалось преобразовать значение [{cur_val}]";
             return 0;
         }
-
         public Hashtable GetDataTable()
         {
             return DataTable;
         }
-
-
         public int GetRowCount()
         {
             return DataTable.Count;
         }
-
         public int GetColumnCount()
         {            
             //+6 столбцов только объекты адреса

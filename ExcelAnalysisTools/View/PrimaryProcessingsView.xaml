@@ -6,62 +6,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             Background="Coral"
              FontFamily="Segoe UI Light"
              FontSize="14"
              mc:Ignorable="d">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-
-        <TextBlock Grid.Row="1"
-                   Margin="3"
-                   Text="Ключевое слово - район" />
-        <TextBox Grid.Row="1"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding DistrictKeyWord, UpdateSourceTrigger=PropertyChanged}" />
-
-        <TextBlock Grid.Row="2"
-                   Margin="3"
-                   Text="Замена - район" />
-        <TextBox Grid.Row="2"
-                 Grid.Column="1"
-                 Margin="3"
-                 Text="{Binding DistrictReplace, UpdateSourceTrigger=PropertyChanged}" />
         <DockPanel Grid.Row="3"
-                   Grid.ColumnSpan="2">
-            <Button Margin="3"
-                    DockPanel.Dock="Right"
-                    Command="{Binding ShowFirstResultCommand}"
-                    Content="..."
-                    Padding="12,0" />
-            <Button x:Name="but1"
-                    Margin="3"
-                    DockPanel.Dock="Left"
+                   Grid.ColumnSpan="2" />
+
+        <StackPanel Margin="0,6,0,0"
+                    HorizontalAlignment="Stretch">
+
+            <Button Margin="0,6"
                     Command="{Binding FirstMarcosCommand}"
-                    Content="1 этап" />
-        </DockPanel>
+                    Content="1 этап - сбор данных" />
 
+            <Button Margin="0,6"
+                    Command="{Binding ShowFirstResultCommand}"
+                    Content="2 этап - корректировка данных" />
 
-
-        <Button Grid.Row="4"
-                Grid.ColumnSpan="2"
-                Width="{Binding ElementName=but1, Path=ActualWidth}"
-                Margin="3"
-                HorizontalAlignment="Left"
-                DockPanel.Dock="Left"
-                Command="{Binding SecontMarcosCommand}"
-                Content="2 этап" />
+            <Button Margin="0,6"
+                    Command="{Binding SecontMarcosCommand}"
+                    Content="3 этап - обработка данных" />
+        </StackPanel>
     </Grid>
 </UserControl>

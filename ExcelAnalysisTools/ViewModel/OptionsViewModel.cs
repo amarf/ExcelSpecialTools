@@ -59,6 +59,7 @@ namespace ExcelAnalysisTools.ViewModel
                 _repository.Save<Options>();
             }
         }
+
         [OnCommand("OpenRegexListCommand")]
         private void OpenRegexList()
         {
@@ -90,6 +91,9 @@ namespace ExcelAnalysisTools.ViewModel
             }
         }
 
+        [OnCommandCanExecute("EditAddressListCommand")]
+        private bool EditAddressListCanExecute() => Data.AddressListPath != null;
+
         CustomTaskPane regexEditorPane;
         [OnCommand("EditRegexListCommand")]
         private void EditRegexList()
@@ -108,6 +112,11 @@ namespace ExcelAnalysisTools.ViewModel
                 regexEditorPane.Visible = true;
             }
         }
+
+        [OnCommandCanExecute("EditRegexListCommand")]
+        private bool EditRegexListCanExecute() => Data.RegexListPath != null ;
+
+
         [OnCommand("CreateAddressListCommand")]
         private void CreateAddressList()
         {
@@ -132,5 +141,28 @@ namespace ExcelAnalysisTools.ViewModel
         //{
         //    _repository.ReLoad();
         //}
+
+
+        [OnCommand("CreateProfileListCommand")]
+        private void CreateProfileList()
+        {
+            _fileBrowserDialog.IsSaveFileDialog = true;
+            _fileBrowserDialog.Reset();
+            if (_fileBrowserDialog.ShowDialog())
+            {
+                _repository.Create<ProfileList>(_fileBrowserDialog.SelectedPath);
+            };
+        }
+
+        [OnCommand("LoadProfileListCommand")]
+        private void LoadProfileList()
+        {
+            _fileBrowserDialog.IsSaveFileDialog = false;
+            _fileBrowserDialog.Reset();
+            if (_fileBrowserDialog.ShowDialog())
+            {
+                _repository.Load<ProfileList>(_fileBrowserDialog.SelectedPath);
+            };
+        }
     }
 }

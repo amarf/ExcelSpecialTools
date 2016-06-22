@@ -1,4 +1,5 @@
 ﻿using ExcelAnalysisTools.Model;
+using ExcelAnalysisTools.ViewModel.vmServices;
 using Microsoft.Practices.ServiceLocation;
 using PropertyChanged;
 using System;
@@ -22,10 +23,10 @@ namespace ExcelAnalysisTools.ViewModel
 
         public ObservableCollection<AddressToAddressViewModel> TabItems { get; private set; } = new ObservableCollection<AddressToAddressViewModel>();
 
-        public void AddItem(ObservableCollection<AddressModel> list, WorkSheetProfile profile)
+        public void AddItem(WorkObject workObject)
         {
             var mtm = _serviceLocator.GetInstance<AddressToAddressViewModel>();
-            mtm.AddFoundItems(list, profile);
+            mtm.AddFoundItems(workObject.Addresses, workObject.Profile);
             TabItems.Add(mtm);
 
 

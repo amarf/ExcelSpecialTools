@@ -4,37 +4,77 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ExcelAnalysisTools.View"
-             d:DesignHeight="300"
+             d:DesignHeight="600"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <TextBlock Margin="3"
+            <TextBlock Margin="0,12,0,0"
+                       Text="Таблица адресов"
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold" />
+            <Rectangle Height="2"
+                       HorizontalAlignment="Stretch"
+                       Fill="Gray" />
+            <TextBlock Margin="0,3"
+                       FontFamily="Segoe UI"
+                       FontSize="14"
                        Text="{Binding Data.AddressListPath}"
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
-            <Button Margin="3"
+            <Button Margin="0,3"
                     Command="{Binding OpenAddressListCommand}"
                     Content="Открыть файл адресов" />
-            <Button Margin="3"
+            <Button Margin="0,3"
                     Command="{Binding EditAddressListCommand}"
                     Content="Редактировать файл адресов" />
-            <Button Margin="3"
+            <Button Margin="0,3"
                     Command="{Binding CreateAddressListCommand}"
                     Content="Создать файл адресов" />
-            <TextBlock Margin="3"
+
+            <TextBlock Margin="0,24,0,0"
+                       Text="Таблица выражений"
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold" />
+            <Rectangle Height="2"
+                       HorizontalAlignment="Stretch"
+                       Fill="Gray" />
+            <TextBlock Margin="0,3"
+                       FontFamily="Segoe UI"
+                       FontSize="14"
                        Text="{Binding Data.RegexListPath}"
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
-            <Button Margin="3"
+            <Button Margin="0,3"
                     Command="{Binding OpenRegexListCommand}"
                     Content="Открыть файл выражений" />
-            <Button Margin="3"
+            <Button Margin="0,3"
                     Command="{Binding EditRegexListCommand}"
                     Content="Редактировать файл выражений" />
-            <Button Margin="3"
+            <Button Margin="0,3"
                     Command="{Binding CreateRegexListCommand}"
                     Content="Создать файл выражений" />
+
+
+            <TextBlock Margin="0,24,0,0"
+                       Text="Таблица профилей"
+                       FontSize="14"
+                       FontFamily="Segoe UI Semibold" />
+            <Rectangle Height="2"
+                       HorizontalAlignment="Stretch"
+                       Fill="Gray" />
+            <TextBlock Margin="0,3"
+                       FontFamily="Segoe UI"
+                       FontSize="14"
+                       Text="{Binding Data.ProfileListPath}"
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+            <Button Margin="0,3"
+                    Command="{Binding LoadProfileListCommand}"
+                    Content="Загрузкить таблицу" />
+            <Button Margin="0,3"
+                    Command="{Binding CreateProfileListCommand}"
+                    Content="Создать новую таблицу" />
 
         </StackPanel>
     </Grid>

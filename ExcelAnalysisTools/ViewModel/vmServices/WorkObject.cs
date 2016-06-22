@@ -18,7 +18,7 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
         Worksheet _worksheet;
 
         public object[,] ActiveRange { get; private set; }
-        public int Counter { get; set; } = 1;
+        public int Counter { get; set; } = 0;
 
         public WorkSheetProfile Profile
         {
