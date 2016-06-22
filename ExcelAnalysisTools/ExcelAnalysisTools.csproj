@@ -202,12 +202,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Model\Data\ProfileList.xml" />
+    <Resource Include="Model\Data\RegexListW.xml" />
+    <Resource Include="Model\Data\Адресный список адаптированный 13-04-16.xml" />
     <Resource Include="View\Resources\FontAwesome.otf" />
-    <Resource Include="Model\Data\AddressesList.xml" />
-    <Content Include="Model\Data\Module1.bas" />
-    <Content Include="Model\Data\Module3.bas" />
-    <Content Include="Model\Data\Макросы переноса.bas" />
-    <Resource Include="Model\Data\RegexList.xml" />
     <EmbeddedResource Include="WfHosts\HostToolsPane.resx">
       <DependentUpon>HostToolsPane.cs</DependentUpon>
     </EmbeddedResource>

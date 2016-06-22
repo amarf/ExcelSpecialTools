@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0"?>
 <regexes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<replaceExpression value="\s+канала\s+наб\." replaceValue=" наб.кан. " order="0"/>
 	<replaceExpression value="-я(?=\s)" replaceValue="" order="1"/>
 	<replaceExpression value="-ая(?=\s)" replaceValue="" order="2"/>
 	<replaceExpression value="д\.(?=\d+)" replaceValue="" order="3"/>
@@ -9,5 +10,5 @@
 	<replaceExpression value="ё" replaceValue="е" order="7"/>
 	<replaceExpression value="ъ" replaceValue="ь" order="8"/>
 	<replaceExpression value="[., ]*" replaceValue="" order="9"/>
-	<replaceExpression value="\s+" replaceValue="" order="10"/>
+	<replaceExpression value="\s+" replaceValue="" order="10" />
 </regexes>

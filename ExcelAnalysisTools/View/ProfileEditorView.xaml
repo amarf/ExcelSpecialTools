@@ -1,0 +1,255 @@
+﻿<UserControl x:Class="ExcelAnalysisTools.View.ProfileEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ExcelAnalysisTools.View"
+             xmlns:model="clr-namespace:ExcelAnalysisTools.Model"
+             xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+             d:DesignHeight="300"
+             d:DesignWidth="450"
+             FontSize="14"
+             FontFamily="Segoe UI Light"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type model:WorkSheetProfileItem}">
+                <DockPanel>
+                    <Button VerticalAlignment="Center"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource LinkButton}"
+                            Command="{Binding DataContext.ResetProfileItemCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                            CommandParameter="{Binding}">
+                        <TextBlock Text="&#xf014;"
+                                   FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
+                    </Button>
+
+                    <RadioButton Margin="6,0"
+                                 VerticalAlignment="Center"
+                                 IsTabStop="False"
+                                 DockPanel.Dock="Left"
+                                 GroupName=""
+                                 IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}, Mode=FindAncestor}}" />
+                    <Border VerticalAlignment="Stretch"
+                            DockPanel.Dock="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="f1" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+
+                            <Rectangle Width="1"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Fill="LightGray" />
+
+                            <TextBox Grid.Column="0"
+                                     Margin="6,0"
+                                     HorizontalContentAlignment="Left"
+                                     VerticalContentAlignment="Center"
+                                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0"
+                                     Background="Transparent" />
+                            <TextBox Grid.Column="1"
+                                     Margin="6,0"
+                                     HorizontalContentAlignment="Left"
+                                     VerticalContentAlignment="Center"
+                                     Text="{Binding Column, UpdateSourceTrigger=PropertyChanged}"
+                                     BorderThickness="0"
+                                     Background="Transparent" />
+
+
+                        </Grid>
+                    </Border>
+
+                </DockPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel DataContext="{Binding EditData}"
+               Grid.IsSharedSizeScope="True">
+        <StackPanel DockPanel.Dock="Top">
+            <UniformGrid Margin="0,6"
+                         Rows="1">
+                <Button Margin="0,0,3,0"
+                        Content="Back"
+                        Command="{Binding DataContext.BackCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" />
+                <ToggleButton Margin="3,0,0,0"
+                              Content="Auto"
+                              IsChecked="{Binding DataContext.IsAutoCommandBegin, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                              Command="{Binding DataContext.AutoCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                              CommandParameter="{Binding}" />
+            </UniformGrid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Имя профиля" />
+                <TextBox Grid.Column="1"
+                         Margin="3"
+                         Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Имя листа" />
+                <TextBox Grid.Column="1"
+                         Margin="3"
+                         Text="{Binding WorksheetName, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Ключ для поиска района" />
+                <TextBox Grid.Column="1"
+                         Margin="3"
+                         Text="{Binding DistrictKeyWord, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Постановка район" />
+                <TextBox Grid.Column="1"
+                         Margin="3"
+                         Text="{Binding DistrictWordReplace, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Ключ для исключчения адреса" />
+                <TextBox Grid.Column="1"
+                         Margin="3"
+                         Text="{Binding AddressNotKeyWord, UpdateSourceTrigger=PropertyChanged}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Печатать отчет" />
+                <CheckBox Grid.Column="1"
+                          Margin="3"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding IsPrintResult}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Первая ячейка с районом" />
+                <ToggleButton Grid.Row="4"
+                              Grid.Column="1"
+                              Margin="3"
+                              DockPanel.Dock="Right"
+                              Content="{Binding FirstDistrictCell.Address}"
+                              IsChecked="{Binding DataContext.IsFirstDistrictCell, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Первая ячейка с адресом" />
+                <ToggleButton Grid.Row="5"
+                              Grid.Column="1"
+                              Margin="3"
+                              DockPanel.Dock="Right"
+                              Content="{Binding FirstAddressCell.Address}"
+                              IsChecked="{Binding DataContext.IsFirstAddressCell, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" />
+
+            </Grid>
+            <Grid Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="a1" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="6"
+                           Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Последняя ячейка с адресом" />
+                <ToggleButton Grid.Row="6"
+                              Grid.Column="1"
+                              Margin="3"
+                              Content="{Binding LastAddressCell.Address}"
+                              IsChecked="{Binding DataContext.IsLastAddressCell, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" />
+
+            </Grid>
+        </StackPanel>
+
+        <Rectangle Height="2"
+                   Margin="0,3"
+                   HorizontalAlignment="Stretch"
+                   Fill="White"
+                   DockPanel.Dock="Top" />
+
+        <ListBox HorizontalContentAlignment="Stretch"
+                 TextBlock.FontSize="12"
+                 DockPanel.Dock="Bottom"
+                 AlternationCount="2"
+                 ScrollViewer.CanContentScroll="False"
+                 SelectedItem="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                 ItemsSource="{Binding Items}" />
+
+    </DockPanel>
+
+
+</UserControl>

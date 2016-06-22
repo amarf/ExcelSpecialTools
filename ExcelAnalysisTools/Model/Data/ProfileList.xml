@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<profileList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <profiles>
+    <profile isPrintResult="false" profileName="2016" worksheetName="2016">
+      <firstDistrictCell address="$A$13:$AA$13" r="13" c="1" />
+      <firstAddressCell address="$B$14" r="14" c="2" />
+      <lastAddressCell address="$B$1435" r="1435" c="2" />
+      <columns>
+        <column name="ЭС" columnNumber="12" />
+        <column name="ТС" columnNumber="13" />
+        <column name="ГС" columnNumber="14" />
+        <column name="ХВС" columnNumber="15" />
+        <column name="ГВС" columnNumber="16" />
+        <column name="ВО" columnNumber="17" />
+        <column name="Фундамент" columnNumber="18" />
+        <column name="АППЗ" columnNumber="19" />
+        <column name="Подвал" columnNumber="20" />
+        <column name="Лифты" columnNumber="21" />
+        <column name="Крыша" columnNumber="22" />
+        <column name="Фасад" columnNumber="23" />
+        <column name="РАСК" columnNumber="24" />
+        <column name="ПД" columnNumber="25" />
+        <column name="ПСД ЭС" columnNumber="0" />
+        <column name="ПСД ТС" columnNumber="0" />
+        <column name="ПСД ГС" columnNumber="0" />
+        <column name="ПСД ХВС" columnNumber="0" />
+        <column name="ПСД ГВС" columnNumber="0" />
+        <column name="ПСД ВО" columnNumber="0" />
+        <column name="ПСД Фундамент" columnNumber="0" />
+        <column name="ПСД АППЗ" columnNumber="0" />
+        <column name="ПСД Подвал" columnNumber="0" />
+        <column name="ПСД Лифты" columnNumber="0" />
+        <column name="ПСД Крыша" columnNumber="0" />
+        <column name="ПСД Фасад" columnNumber="0" />
+        <column name="ПСД РАСК" columnNumber="0" />
+      </columns>
+      <districtKeyWord> район Санкт-Петербурга</districtKeyWord>
+      <districtWordReplace> район Санкт-Петербурга</districtWordReplace>
+      <addressNotKeyWord>итого </addressNotKeyWord>
+    </profile>
+    <profile isPrintResult="false" profileName="Постановление 601" worksheetName="601">
+      <firstDistrictCell address="$A$12:$AO$12" r="12" c="1" />
+      <firstAddressCell address="$B$13" r="13" c="2" />
+      <lastAddressCell address="$B$2307" r="2307" c="2" />
+      <columns>
+        <column name="ЭС" columnNumber="12" />
+        <column name="ТС" columnNumber="13" />
+        <column name="ГС" columnNumber="14" />
+        <column name="ХВС" columnNumber="15" />
+        <column name="ГВС" columnNumber="16" />
+        <column name="ВО" columnNumber="17" />
+        <column name="Фундамент" columnNumber="18" />
+        <column name="АППЗ" columnNumber="19" />
+        <column name="Подвал" columnNumber="20" />
+        <column name="Лифты" columnNumber="21" />
+        <column name="Крыша" columnNumber="22" />
+        <column name="Фасад" columnNumber="23" />
+        <column name="РАСК" columnNumber="24" />
+        <column name="ПД" columnNumber="25" />
+        <column name="ПСД ЭС" columnNumber="0" />
+        <column name="ПСД ТС" columnNumber="0" />
+        <column name="ПСД ГС" columnNumber="0" />
+        <column name="ПСД ХВС" columnNumber="0" />
+        <column name="ПСД ГВС" columnNumber="0" />
+        <column name="ПСД ВО" columnNumber="0" />
+        <column name="ПСД Фундамент" columnNumber="0" />
+        <column name="ПСД АППЗ" columnNumber="0" />
+        <column name="ПСД Подвал" columnNumber="0" />
+        <column name="ПСД Лифты" columnNumber="0" />
+        <column name="ПСД Крыша" columnNumber="0" />
+        <column name="ПСД Фасад" columnNumber="0" />
+        <column name="ПСД РАСК" columnNumber="0" />
+      </columns>
+      <districtKeyWord> район Санкт-Петербурга</districtKeyWord>
+      <districtWordReplace> район Санкт-Петербурга</districtWordReplace>
+      <addressNotKeyWord>итого </addressNotKeyWord>
+    </profile>
+    <profile isPrintResult="false" profileName="814" worksheetName="814">
+      <firstDistrictCell address="$A$13:$AA$13" r="13" c="1" />
+      <firstAddressCell address="$B$14" r="14" c="2" />
+      <lastAddressCell address="$B$2811" r="2811" c="2" />
+      <columns>
+        <column name="ЭС" columnNumber="12" />
+        <column name="ТС" columnNumber="13" />
+        <column name="ГС" columnNumber="14" />
+        <column name="ХВС" columnNumber="15" />
+        <column name="ГВС" columnNumber="16" />
+        <column name="ВО" columnNumber="17" />
+        <column name="Фундамент" columnNumber="18" />
+        <column name="АППЗ" columnNumber="19" />
+        <column name="Подвал" columnNumber="20" />
+        <column name="Лифты" columnNumber="21" />
+        <column name="Крыша" columnNumber="22" />
+        <column name="Фасад" columnNumber="23" />
+        <column name="РАСК" columnNumber="24" />
+        <column name="ПД" columnNumber="25" />
+        <column name="ПСД ЭС" columnNumber="0" />
+        <column name="ПСД ТС" columnNumber="0" />
+        <column name="ПСД ГС" columnNumber="0" />
+        <column name="ПСД ХВС" columnNumber="0" />
+        <column name="ПСД ГВС" columnNumber="0" />
+        <column name="ПСД ВО" columnNumber="0" />
+        <column name="ПСД Фундамент" columnNumber="0" />
+        <column name="ПСД АППЗ" columnNumber="0" />
+        <column name="ПСД Подвал" columnNumber="0" />
+        <column name="ПСД Лифты" columnNumber="0" />
+        <column name="ПСД Крыша" columnNumber="0" />
+        <column name="ПСД Фасад" columnNumber="0" />
+        <column name="ПСД РАСК" columnNumber="0" />
+      </columns>
+      <districtKeyWord> район Санкт-Петербурга</districtKeyWord>
+      <districtWordReplace> район Санкт-Петербурга</districtWordReplace>
+      <addressNotKeyWord>итого </addressNotKeyWord>
+    </profile>
+    <profile isPrintResult="false" profileName="907" worksheetName="907">
+      <firstDistrictCell address="$A$13:$BP$13" r="13" c="1" />
+      <firstAddressCell address="$B$14" r="14" c="2" />
+      <lastAddressCell address="$B$3226" r="3226" c="2" />
+      <columns>
+        <column name="ЭС" columnNumber="13" />
+        <column name="ТС" columnNumber="15" />
+        <column name="ГС" columnNumber="17" />
+        <column name="ХВС" columnNumber="19" />
+        <column name="ГВС" columnNumber="21" />
+        <column name="ВО" columnNumber="23" />
+        <column name="Фундамент" columnNumber="25" />
+        <column name="АППЗ" columnNumber="27" />
+        <column name="Подвал" columnNumber="29" />
+        <column name="Лифты" columnNumber="31" />
+        <column name="Крыша" columnNumber="33" />
+        <column name="Фасад" columnNumber="35" />
+        <column name="РАСК" columnNumber="37" />
+        <column name="ПД" columnNumber="38" />
+        <column name="ПСД ЭС" columnNumber="0" />
+        <column name="ПСД ТС" columnNumber="0" />
+        <column name="ПСД ГС" columnNumber="0" />
+        <column name="ПСД ХВС" columnNumber="0" />
+        <column name="ПСД ГВС" columnNumber="0" />
+        <column name="ПСД ВО" columnNumber="0" />
+        <column name="ПСД Фундамент" columnNumber="0" />
+        <column name="ПСД АППЗ" columnNumber="0" />
+        <column name="ПСД Подвал" columnNumber="0" />
+        <column name="ПСД Лифты" columnNumber="0" />
+        <column name="ПСД Крыша" columnNumber="0" />
+        <column name="ПСД Фасад" columnNumber="0" />
+        <column name="ПСД РАСК" columnNumber="0" />
+      </columns>
+      <districtKeyWord> район Санкт-Петербурга</districtKeyWord>
+      <districtWordReplace> район Санкт-Петербурга</districtWordReplace>
+      <addressNotKeyWord>итого </addressNotKeyWord>
+    </profile>
+    <profile isPrintResult="false" profileName="Новый профиль" worksheetName="КП2015утв">
+      <firstDistrictCell address="$A$14" r="14" c="1" />
+      <firstAddressCell address="$B$15" r="15" c="2" />
+      <lastAddressCell address="$B$1750" r="1750" c="2" />
+      <columns>
+        <column name="ЭС" columnNumber="17" />
+        <column name="ТС" columnNumber="23" />
+        <column name="ГС" columnNumber="31" />
+        <column name="ХВС" columnNumber="35" />
+        <column name="ГВС" columnNumber="41" />
+        <column name="ВО" columnNumber="45" />
+        <column name="Фундамент" columnNumber="49" />
+        <column name="АППЗ" columnNumber="53" />
+        <column name="Подвал" columnNumber="55" />
+        <column name="Лифты" columnNumber="59" />
+        <column name="Крыша" columnNumber="66" />
+        <column name="Фасад" columnNumber="70" />
+        <column name="РАСК" columnNumber="74" />
+        <column name="ПД" columnNumber="84" />
+        <column name="ПСД ЭС" columnNumber="0" />
+        <column name="ПСД ТС" columnNumber="0" />
+        <column name="ПСД ГС" columnNumber="0" />
+        <column name="ПСД ХВС" columnNumber="0" />
+        <column name="ПСД ГВС" columnNumber="0" />
+        <column name="ПСД ВО" columnNumber="0" />
+        <column name="ПСД Фундамент" columnNumber="0" />
+        <column name="ПСД АППЗ" columnNumber="0" />
+        <column name="ПСД Подвал" columnNumber="0" />
+        <column name="ПСД Лифты" columnNumber="0" />
+        <column name="ПСД Крыша" columnNumber="0" />
+        <column name="ПСД Фасад" columnNumber="0" />
+        <column name="ПСД РАСК" columnNumber="0" />
+      </columns>
+      <districtKeyWord> район Санкт-Петербурга</districtKeyWord>
+      <districtWordReplace> район Санкт-Петербурга</districtWordReplace>
+      <addressNotKeyWord>итого </addressNotKeyWord>
+    </profile>
+  </profiles>
+</profileList>
