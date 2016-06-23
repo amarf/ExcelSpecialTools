@@ -72,10 +72,12 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("AddNewAddressCommand")]
         private void AddNewAddress()
         {
+            var maxNumber = _repository.AddressList.Items.Max(i => i.Number);
             _repository.AddressList.Items.Add(new AddressModel
             {
                 Address = newAddress,
-                District = newDistrict
+                District = newDistrict,
+                Number = maxNumber + 1
             });
         }
 

@@ -4,8 +4,194 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ExcelAnalysisTools.View"
+             xmlns:model="clr-namespace:ExcelAnalysisTools.Model"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <Grid />
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/ScrollViewer.xaml" />
+                <ResourceDictionary Source="Resources/Buttons.xaml" />
+                <ResourceDictionary Source="Resources/ToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="Resources/ListBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type model:RegexReplaceExpression}">
+                <Border VerticalAlignment="Stretch"
+                        TextBlock.FontSize="12"
+                        DockPanel.Dock="Left">
+                    <Grid SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="35" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle Grid.Column="0"
+                                   Width="1"
+                                   HorizontalAlignment="Right"
+                                   Fill="Gray" />
+                        <Rectangle Grid.Column="1"
+                                   Width="1"
+                                   HorizontalAlignment="Right"
+                                   Fill="Gray" />
+                        <Rectangle Grid.Column="2"
+                                   Width="1"
+                                   HorizontalAlignment="Right"
+                                   Fill="Gray" />
+
+                        <Rectangle Grid.ColumnSpan="33"
+                                   Height="1"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Bottom"
+                                   Fill="Gray" />
+
+                        <TextBox Grid.Column="0"
+                                 Margin="6,0"
+                                 HorizontalContentAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding Expression, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+                        <TextBox Grid.Column="1"
+                                 Margin="6,0"
+                                 HorizontalContentAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding ReplceExpression, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+
+                        <TextBox Grid.Column="2"
+                                 Margin="6,0"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding Order, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+
+                        <Button Grid.Column="3"
+                                Margin="6"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource LinkButton}"
+                                Command="{Binding DataContext.RemovePaternCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                CommandParameter="{Binding}">
+                            <TextBlock Text="&#xf00d;"
+                                       FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid SnapsToDevicePixels="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="11*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="0"
+                Margin="0,3"
+                Content="Сохранить"
+                Command="{Binding SaveRegexLictCommand}" />
+        <Grid Grid.Row="1"
+              Grid.IsSharedSizeScope="True">
+            <Grid.ColumnDefinitions>
+                <!--<ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition SharedSizeGroup="g3" />
+                <ColumnDefinition SharedSizeGroup="g4" />
+                <ColumnDefinition Width="8" />-->
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--<Rectangle Grid.Column="0"
+                       Width="1"
+                       HorizontalAlignment="Right"
+                       Fill="Gray" />
+            <Rectangle Grid.Column="1"
+                       Width="1"
+                       HorizontalAlignment="Right"
+                       Fill="Gray" />
+            <Rectangle Grid.Column="2"
+                       Width="1"
+                       HorizontalAlignment="Right"
+                       Fill="Gray" />
+            <TextBlock Grid.Column="0"
+                       Margin="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="Патерн"
+                       FontFamily="Segoe UI Semibold" />
+            <TextBlock Grid.Column="1"
+                       Margin="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Segoe UI Semibold"
+                       Text="Шаблон замены" />
+            <TextBlock Grid.Column="2"
+                       Margin="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Segoe UI Semibold"
+                       Text="Приоритет" />-->
+
+            <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     Grid.ColumnSpan="33"
+                     Margin="0,3"
+                     HorizontalContentAlignment="Stretch"
+                     Background="Transparent"
+                     AlternationCount="2"
+                     ItemsSource="{Binding Items}" />
+        </Grid>
+        <Grid Grid.Row="2" TextBlock.FontSize="12">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Margin="3,3,0,3"
+                    Content="Добавить"
+                    Command="{Binding AddNewregexCommand}" />
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="3"
+                       VerticalAlignment="Center"
+                       Text="Патерн" />
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="3"
+                     BorderThickness="0,1"
+                     BorderBrush="Gray"
+                     Text="{Binding NewReg}" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Margin="3"
+                       VerticalAlignment="Center"
+                       Text="Шаблон" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="3"
+                     BorderThickness="0,1"
+                     BorderBrush="Gray"
+                     Text="{Binding NewRegReplace}" />
+
+
+        </Grid>
+    </Grid>
 </UserControl>

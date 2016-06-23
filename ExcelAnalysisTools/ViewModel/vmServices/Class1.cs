@@ -151,18 +151,38 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                 var district = workObj.ActiveRange[row, distColumn] + "";
                 var address = workObj.ActiveRange[row, adrColumn] + "";
 
-                if (districtKeyWord.Length > 0 && district.Contains(districtKeyWord))
-                    lastDistrict = district.Replace(districtWordReplace, "");
-                else if(districtKeyWord.Length == 0)
-                    lastDistrict = district;
+                var distrcitStrings = districtKeyWord.Split('|'); //эти слова используются для поиска района
+                var distrReplStrings = districtWordReplace.Split('&');
+                var adrNotKeyStrings = addressNotKeyWord.Split('|');
 
-                if ( !string.IsNullOrWhiteSpace(address))
+                foreach (var str in distrcitStrings)
                 {
-                    if (addressNotKeyWord.Length > 0 && address.ToLower().Contains(addressNotKeyWord.ToLower()))
+                    if (str.Length > 0 && district.Contains(str))
                     {
-
+                        lastDistrict = district;
+                        foreach (var str_repl in distrReplStrings)
+                            lastDistrict = lastDistrict.Replace(str_repl, "");
+                        break;
                     }
-                    else 
+                    else if (districtKeyWord.Length == 0)
+                        lastDistrict = district;
+                }
+
+
+
+                if (!string.IsNullOrWhiteSpace(address))
+                {
+                    bool flag = true;
+                    if (addressNotKeyWord.Length > 0)
+                        foreach (var str in adrNotKeyStrings)
+                            if (address.ToLower().Contains(str.ToLower()))
+                            {
+                                flag = false;
+                                break;
+                            }
+
+
+                    if (flag) 
                     {
                         adr = GetNewAddress(lastDistrict, address, row, workObj);
                         workObj.Addresses.Add(adr);

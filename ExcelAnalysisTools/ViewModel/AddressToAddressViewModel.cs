@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using Commander;
 using System.Text.RegularExpressions;
+using Prism.Events;
 
 namespace ExcelAnalysisTools.ViewModel
 {
@@ -26,10 +27,13 @@ namespace ExcelAnalysisTools.ViewModel
 
         private readonly Repository _repository;
         private readonly Application _excelApplication;
+        private readonly IEventAggregator _eventAggregator;
 
-        public AddressToAddressViewModel(Repository repository)
+
+        public AddressToAddressViewModel(Repository repository, IEventAggregator eventAggregator)
         {
             _repository = repository;
+            _eventAggregator = eventAggregator;
             _excelApplication = (Application)ExcelDnaUtil.Application;
 
             createGlobalAddressesView();
@@ -47,6 +51,24 @@ namespace ExcelAnalysisTools.ViewModel
                 if (args.PropertyName == "AddressList")
                     createGlobalAddressesView();
             };
+
+            _eventAggregator.GetEvent<PubSubEvent<AddressModel>>().Subscribe(adr =>
+            {
+                var findAdr = adr.Address.Replace(" ", "");
+                var findDst = adr.District.Replace(" ", "");
+                var list = (NotFoundItems.SourceCollection as IEnumerable<AddressModel>);
+
+                var curAdr = list.Where(i=>i.Number==0).FirstOrDefault(it => it.Address.Replace(" ", "") == findAdr & it.District.Replace(" ", "") == findDst);
+                if (curAdr!=null)
+                {
+                    curAdr.Number = adr.Number;
+                    curAdr.KgiopStatus = adr.KgiopStatus;
+                    curAdr.Uid = adr.Uid;
+                    NotFoundItems.Refresh();
+
+                    SelectedNotFoundItem = list.Where(i => i.Number == 0).FirstOrDefault();
+                }
+            });
         }
 
         private string getFindText(string address)
@@ -123,10 +145,13 @@ namespace ExcelAnalysisTools.ViewModel
         [OnCommand("SetUidToNotFoundItemCommand")]
         private void SetUidToNotFoundItem(AddressModel globalAddress)
         {
-            SelectedNotFoundItem.Number = globalAddress.Number;
-            SelectedNotFoundItem.KgiopStatus = globalAddress.KgiopStatus;
-            SelectedNotFoundItem.Uid = globalAddress.Uid;
+            var adr = SelectedNotFoundItem;
+            adr.Number = globalAddress.Number;
+            adr.KgiopStatus = globalAddress.KgiopStatus;
+            adr.Uid = globalAddress.Uid;
             NotFoundItems.Refresh();
+
+            _eventAggregator.GetEvent<PubSubEvent<AddressModel>>().Publish(adr);
         }
 
         [OnCommandCanExecute("SetUidToNotFoundItemCommand")]

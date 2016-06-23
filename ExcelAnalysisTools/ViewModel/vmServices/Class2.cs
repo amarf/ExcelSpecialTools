@@ -32,20 +32,27 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
         }
 
 
-        public SD.DataTable GoWork(IList<WorkObject> workObjList)
+        public SD.DataTable GoWork(IList<WorkObject> workObjList, bool isTwoProfileCompare)
         {
-            if (workObjList.Count == 0) return null;
+            foreach (var item in workObjList)
+                item.Counter = 0; //сбрасываем счетчики
 
-            SortAddresses(workObjList);
+            var list = workObjList;
+            if (isTwoProfileCompare)
+                list = workObjList.OrderBy(i => i.Profile.Order).ToList();
+
+            if (list.Count == 0) return null;
+
+            SortAddresses(list);
             AddressModel curentMinNumberAdr;
-            var resultTable = CreateTable(workObjList);
-            var keys = GetResultKeys(workObjList);
+            var resultTable = CreateTable(list);
+            var keys = GetResultKeys(list);
 
             while (true)
             {
-                curentMinNumberAdr = GetMinNumberAddress(workObjList);
+                curentMinNumberAdr = GetMinNumberAddress(list);
                 if (curentMinNumberAdr == null) break;
-                AddDataToResultTable(resultTable, curentMinNumberAdr, workObjList, keys);
+                AddDataToResultTable(resultTable, curentMinNumberAdr, list, keys, isTwoProfileCompare);
             }
 
             return resultTable;
@@ -69,19 +76,21 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
 
             return dt;
         }
-        private void AddDataToResultTable(SD.DataTable table, AddressModel curentMinNumberAdr, IList<WorkObject> workObjList, List<string> keys)
+        private void AddDataToResultTable(SD.DataTable table, AddressModel curentMinNumberAdr, IList<WorkObject> workObjList, List<string> keys, bool isTwoProfileCompare)
         {
             var updateCounterList = new List<WorkObject>();
 
             foreach (var key in keys) //строки
             {
-                var row = table.NewRow();
+                var row = table.NewRow(); //table.Rows.Count - 1
                 table.Rows.Add(row);
                 row[0] = curentMinNumberAdr.District;
                 row[1] = curentMinNumberAdr.Address;
                 row[2] = curentMinNumberAdr.KgiopStatus;
                 row[3] = curentMinNumberAdr.Uid;
                 row[4] = key;
+
+                List<double> costList = new List<double>();
 
                 for (int i = 0; i < workObjList.Count; i++)
                 {
@@ -93,13 +102,17 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                         if (address.Number > curentMinNumberAdr.Number)
                         {
                             row[i + 5] = 0;
-                            row[5 + workObjList.Count] += $"Адрес и работа исключены из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
+                            row[5 + workObjList.Count] += $"адр. иск. из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
+                            costList.Add(-1);
                         }
                         else if (address.Number == curentMinNumberAdr.Number)
                         {
 
                             string errorConverMsg;
-                            row[i + 5] = address.GetData(key, true, out errorConverMsg);
+                            var cost = address.GetData(key, true, out errorConverMsg);
+                            row[i + 5] = cost;
+                            costList.Add(cost);
+
                             if (!string.IsNullOrWhiteSpace(errorConverMsg))
                                 row[5 + workObjList.Count] += errorConverMsg + $"[{wobj.Profile.ProfileName}]; ";
 
@@ -112,7 +125,26 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                     else
                     {
                         row[i + 5] = 0;
-                        row[5 + workObjList.Count] += $"Адрес и работа исключены из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
+                        row[5 + workObjList.Count] += $"адр. иск. из [{wobj.Profile.ProfileName}];"; /*занести в примечание сведения об исключении адреса*/
+                        costList.Add(-1);
+                    }
+                }
+
+                if (isTwoProfileCompare)
+                {  
+                    /*Выполняем анализ*/
+                    var first = costList.FirstOrDefault();
+                    var last = costList.LastOrDefault();
+                    if (first != 0 || last != 0)
+                    {
+                        if (first == 0 & last > 0)
+                            row[table.Columns.Count - 1] = "Работа добавлена";
+                        else if (first > 0 & last == 0)
+                            row[table.Columns.Count - 1] = "Работа исключена";
+                        else if (first == -1 & last >= 0)
+                            row[table.Columns.Count - 1] = "Адрес и работа добавлены";
+                        else if (first >= 0 & last == -1)
+                            row[table.Columns.Count - 1] = "Адрес и работа исключены";
                     }
                 }
             }

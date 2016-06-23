@@ -1,6 +1,7 @@
 ﻿using ExcelAnalysisTools.Model;
 using ExcelAnalysisTools.ViewModel.vmServices;
 using Microsoft.Practices.ServiceLocation;
+using Prism.Events;
 using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
@@ -14,10 +15,12 @@ namespace ExcelAnalysisTools.ViewModel
     public class NotFoundViewModel
     {
         private readonly IServiceLocator _serviceLocator;
+        private readonly IEventAggregator _eventAggregator;
 
-        public NotFoundViewModel(IServiceLocator serviceLocator)
+        public NotFoundViewModel(IServiceLocator serviceLocator, IEventAggregator eventAggregator)
         {
             _serviceLocator = serviceLocator;
+            _eventAggregator = eventAggregator;
         }
 
 

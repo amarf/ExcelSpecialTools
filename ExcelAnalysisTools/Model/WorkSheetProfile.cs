@@ -35,6 +35,9 @@ namespace ExcelAnalysisTools.Model
         [XmlArray("columns"), XmlArrayItem("column")]
         public ObservableCollection<WorkSheetProfileItem> Items { get; set; }
 
+        [XmlElement("order")]
+        public int Order { get; set; }
+
 
         [XmlElement("districtKeyWord")]
         public string DistrictKeyWord { get; set; } = " район Санкт-Петербурга";

@@ -27,6 +27,17 @@
             <Button Margin="0,6"
                     Command="{Binding SecontMarcosCommand}"
                     Content="3 этап - обработка данных" />
+            <DockPanel>
+                <CheckBox Grid.Column="0"
+                          Margin="3"
+                          VerticalAlignment="Center"
+                          DockPanel.Dock="Right"
+                          IsChecked="{Binding IsTwoProfileCompare}" />
+                <TextBlock Grid.Column="0"
+                           Margin="3"
+                           VerticalAlignment="Center"
+                           Text="Двух профильное сравнение" />
+            </DockPanel>
         </StackPanel>
     </Grid>
 </UserControl>

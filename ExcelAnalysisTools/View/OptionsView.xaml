@@ -23,12 +23,18 @@
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding OpenAddressListCommand}"
                     Content="Открыть файл адресов" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding EditAddressListCommand}"
                     Content="Редактировать файл адресов" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding CreateAddressListCommand}"
                     Content="Создать файл адресов" />
 
@@ -46,12 +52,18 @@
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding OpenRegexListCommand}"
                     Content="Открыть файл выражений" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding EditRegexListCommand}"
                     Content="Редактировать файл выражений" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding CreateRegexListCommand}"
                     Content="Создать файл выражений" />
 
@@ -70,9 +82,13 @@
                        TextTrimming="CharacterEllipsis"
                        ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding LoadProfileListCommand}"
                     Content="Загрузкить таблицу" />
             <Button Margin="0,3"
+                    FontSize="12"
+                    Padding="3"
                     Command="{Binding CreateProfileListCommand}"
                     Content="Создать новую таблицу" />
 

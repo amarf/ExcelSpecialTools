@@ -74,10 +74,12 @@ namespace ExcelAnalysisTools.ViewModel
         public int Row_DistrictStartNumber { get; set; } = 13;
         public int Row_AddressStartNumber { get; set; } = 14;
 
-        public string DistrictReplace { get; set; } = " район Санкт-Петербурга";
-        public string DistrictKeyWord { get; set; } = " район ";
+        //public string DistrictReplace { get; set; } = " район Санкт-Петербурга";
+        //public string DistrictKeyWord { get; set; } = " район ";
 
-        public bool IsFirstComplite { get; set; } 
+        public bool IsFirstComplite { get; set; }
+
+        public bool IsTwoProfileCompare { get; set; } = false;
 
         #endregion
 
@@ -155,7 +157,7 @@ namespace ExcelAnalysisTools.ViewModel
         public void StartDistrictMarcos2()
         {
             var class2 = _serviceLocator.GetInstance<Class2>();
-            var table = class2.GoWork(tempList);
+            var table = class2.GoWork(tempList, IsTwoProfileCompare);
             object[,] result = new object[table.Rows.Count + 1, table.Columns.Count];
 
 

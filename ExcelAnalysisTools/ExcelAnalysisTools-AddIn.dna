@@ -1,5 +1,5 @@
 <DnaLibrary Name="ExcelAnalysisTools Add-In" RuntimeVersion="v4.0">
-  <ExternalLibrary Path="ExcelAnalysisTools.exe" LoadFromBytes="true" Pack="true" />
+  <ExternalLibrary Path="ExcelAnalysisTools.dll" LoadFromBytes="true" Pack="true"  />
   
   <!-- 
        The RuntimeVersion attribute above allows two settings:
@@ -22,7 +22,7 @@
       <ribbon>
         <tabs>
           <tab id='ToolsTab' label='TOOLS TAB'>
-            <group id='SampleGroup' label='CTP Control'>
+            <group id='atoolGroup' label='CTP Control'>
               <!--<button id='Button1' label="Open tools" onAction='OpenToolPanelCommand'/>-->
               <toggleButton  id='toggle_openToolPanel' label="Open tools2" getPressed="ValidateIsPressed" onAction='OpenToolPanelCommand' />
             </group >

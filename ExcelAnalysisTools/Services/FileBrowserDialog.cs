@@ -27,7 +27,7 @@ namespace ExcelAnalysisTools.Services
                 isSaveFileDialog = value;
                 var temp = _dialog;
                 if (value)
-                    _dialog = _preview_dialog != null ? _preview_dialog : new SaveFileDialog();
+                    _dialog = _preview_dialog != null ? _preview_dialog : new SaveFileDialog() { Filter= "XML-File | *.xml" };
                 else
                     _dialog = _preview_dialog != null ? _preview_dialog : new OpenFileDialog();
                 _preview_dialog = temp;
