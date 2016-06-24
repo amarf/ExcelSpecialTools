@@ -146,6 +146,8 @@
     <Compile Include="Services\UserMsgService.cs" />
     <Compile Include="ViewModel\AddressListViewModel.cs" />
     <Compile Include="ViewModel\AddressToAddressViewModel.cs" />
+    <Compile Include="ViewModel\DesignDContext\Addresses.cs" />
+    <Compile Include="ViewModel\DesignDContext\Regex.cs" />
     <Compile Include="ViewModel\NotFoundViewModel.cs" />
     <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
@@ -155,6 +157,9 @@
     <Compile Include="ViewModel\vmServices\Class1.cs" />
     <Compile Include="ViewModel\vmServices\Class2.cs" />
     <Compile Include="ViewModel\vmServices\WorkObject.cs" />
+    <Compile Include="View\AddressListView.xaml.cs">
+      <DependentUpon>AddressListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddressToAddress.xaml.cs">
       <DependentUpon>AddressToAddress.xaml</DependentUpon>
     </Compile>

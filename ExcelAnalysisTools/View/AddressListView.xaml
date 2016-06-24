@@ -4,66 +4,226 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ExcelAnalysisTools.View"
+             xmlns:model="clr-namespace:ExcelAnalysisTools.Model"
+             xmlns:desing="clr-namespace:ExcelAnalysisTools.ViewModel.DesignDContext"
              d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DataContext="{DynamicResource DesignDContext}"
+             d:DesignWidth="450"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/ScrollViewer.xaml" />
+                <ResourceDictionary Source="Resources/Buttons.xaml" />
+                <ResourceDictionary Source="Resources/ToggleButtonStyle.xaml" />
+                <ResourceDictionary Source="Resources/ListBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <desing:Addresses x:Key="DesignDContext" />
+
+            <DataTemplate DataType="{x:Type model:AddressModel}">
+                <Border VerticalAlignment="Stretch"
+                        TextBlock.FontSize="12"
+                        DockPanel.Dock="Left">
+                    <Grid SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle Grid.Column="0"
+                                   Width="1"
+                                   HorizontalAlignment="Right"
+                                   Fill="Gray" />
+                        <Rectangle Grid.Column="1"
+                                   Width="1"
+                                   HorizontalAlignment="Right"
+                                   Fill="Gray" />
+                        <Rectangle Grid.Column="2"
+                                   Width="1"
+                                   HorizontalAlignment="Right"
+                                   Fill="Gray" />
+
+                        <Rectangle Grid.ColumnSpan="33"
+                                   Height="1"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Bottom"
+                                   Fill="Gray" />
+
+                        <TextBox Grid.Column="0"
+                                 Margin="6,0"
+                                 HorizontalContentAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding District, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+                        <TextBox Grid.Column="1"
+                                 Margin="6,0"
+                                 HorizontalContentAlignment="Left"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+
+                        <TextBox Grid.Column="2"
+                                 Margin="6,0"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Text="{Binding KgiopStatus, UpdateSourceTrigger=PropertyChanged}"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+
+                        <Button Grid.Column="3"
+                                Margin="6"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource LinkButton}"
+                                Command="{Binding DataContext.RemoveAddressCommand, RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}}"
+                                CommandParameter="{Binding}">
+                            <TextBlock Text="&#xf00d;"
+                                       FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </DataTemplate>
+
+
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Button Command="{Binding SaveListCommand}"
-                Content="Сохранить изменения" />
+        <DockPanel Grid.Row="0"
+                   Margin="0,3">
+            <Button Margin="3,0,0,0"
+                    DockPanel.Dock="Right"
+                    Command="{Binding ReloadAddressListCommand}">
+                <TextBlock Text="&#xf021;"
+                           FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
 
-        <DockPanel Grid.Row="1">
-            <DockPanel DockPanel.Dock="Top">
-                <TextBox Margin="3"
-                         Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"
-                         DockPanel.Dock="Left" />
-            </DockPanel>
+            </Button>
+            <Button Margin="3,0,0,0"
+                    DockPanel.Dock="Right"
+                    Command="{Binding AddNewAddressCommand}">
+                <TextBlock Text="&#xf067;"
+                           FontFamily="pack://application:,,,/ExcelAnalysisTools;component/View/Resources/#FontAwesome" />
 
-            <DockPanel DockPanel.Dock="Bottom">
-                <TextBlock Margin="3"
-                           DockPanel.Dock="Top"
-                           Text="Добавить новый адрес" />
-                <Button Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                        Margin="3"
-                        Command="{Binding AddNewAddressCommand}"
-                        Content="Ok"
-                        DockPanel.Dock="Right" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Margin="3"
-                               Text="Адрес" />
-                    <TextBox Grid.Row="0"
-                             Grid.Column="1"
-                             Margin="3"
-                             Text="{Binding newAddress, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="0"
-                               Margin="3"
-                               Text="Район" />
-                    <TextBox Grid.Row="1"
-                             Grid.Column="1"
-                             Margin="3"
-                             Text="{Binding newDistrict, UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
-
-            </DockPanel>
-            <DataGrid Margin="3"
-                      DockPanel.Dock="Bottom"
-                      ItemsSource="{Binding Items}" />
-
+            </Button>
+            <Button Content="Сохранить"
+                    Command="{Binding SaveListCommand}" />
         </DockPanel>
+
+        <TextBox Grid.Row="1"
+                 Margin="0,3"
+                 BorderThickness="0,1"
+                 BorderBrush="Gray"
+                 FontSize="14"
+                 Text="{Binding FindText, UpdateSourceTrigger=PropertyChanged}"
+                 DockPanel.Dock="Left" />
+
+        <!--<DataGrid Grid.Row="2"
+                  Margin="0,3"
+
+                  ItemsSource="{Binding Items}" />-->
+
+
+        <ListBox Grid.Row="2"
+                 Grid.ColumnSpan="33"
+                 Margin="0,3"
+                 HorizontalContentAlignment="Stretch"
+                 SnapsToDevicePixels="True"
+                 Grid.IsSharedSizeScope="True"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Background="Transparent"
+                 AlternationCount="2"
+                 ItemsSource="{Binding Items}">
+            <ListBox.Template>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="0"
+                            SnapsToDevicePixels="True">
+                        <Grid Grid.Row="1"
+                              Grid.IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="8" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Rectangle Grid.Column="0"
+                                       Width="1"
+                                       Margin="0,0,-1,0"
+                                       HorizontalAlignment="Right"
+                                       Fill="Gray" />
+                            <Rectangle Grid.Column="1"
+                                       Width="1"
+                                       HorizontalAlignment="Right"
+                                       Fill="Gray" />
+                            <Rectangle Grid.Column="2"
+                                       Width="1"
+                                       HorizontalAlignment="Right"
+                                       Fill="Gray" />
+                            <TextBlock Grid.Column="0"
+                                       Margin="3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="Район"
+                                       FontFamily="Segoe UI Semibold" />
+                            <TextBlock Grid.Column="1"
+                                       Margin="3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe UI Semibold"
+                                       Text="Адрес" />
+                            <TextBlock Grid.Column="2"
+                                       Margin="3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe UI Semibold"
+                                       Text="Статус ОКН" />
+                            <ScrollViewer Grid.Row="1"
+                                          Grid.ColumnSpan="33"
+                                          Margin="0"
+                                          Focusable="False"
+                                          BorderThickness="0">
+                                <ItemsPresenter Margin="0"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsGrouping" Value="True" />
+                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ListBox.Template>
+        </ListBox>
+
+
     </Grid>
 </UserControl>

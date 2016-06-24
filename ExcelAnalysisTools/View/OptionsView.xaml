@@ -26,17 +26,12 @@
                     FontSize="12"
                     Padding="3"
                     Command="{Binding OpenAddressListCommand}"
-                    Content="Открыть файл адресов" />
-            <Button Margin="0,3"
-                    FontSize="12"
-                    Padding="3"
-                    Command="{Binding EditAddressListCommand}"
-                    Content="Редактировать файл адресов" />
+                    Content="Открыть таблицу адресов" />
             <Button Margin="0,3"
                     FontSize="12"
                     Padding="3"
                     Command="{Binding CreateAddressListCommand}"
-                    Content="Создать файл адресов" />
+                    Content="Создать таблицу адресов" />
 
             <TextBlock Margin="0,24,0,0"
                        Text="Таблица выражений"
@@ -55,17 +50,12 @@
                     FontSize="12"
                     Padding="3"
                     Command="{Binding OpenRegexListCommand}"
-                    Content="Открыть файл выражений" />
-            <Button Margin="0,3"
-                    FontSize="12"
-                    Padding="3"
-                    Command="{Binding EditRegexListCommand}"
-                    Content="Редактировать файл выражений" />
+                    Content="Открыть таблицу выражений" />
             <Button Margin="0,3"
                     FontSize="12"
                     Padding="3"
                     Command="{Binding CreateRegexListCommand}"
-                    Content="Создать файл выражений" />
+                    Content="Создать таблицу выражений" />
 
 
             <TextBlock Margin="0,24,0,0"

@@ -28,8 +28,6 @@ namespace ExcelAnalysisTools.ViewModel
             _userMsgService = userMsgService;
             _repository = repository;
 
-
-
             SetItems();
             (repository as INotifyPropertyChanged).PropertyChanged += (sender, args) =>
             {
@@ -49,27 +47,32 @@ namespace ExcelAnalysisTools.ViewModel
         private ObservableCollection<RegexReplaceExpression> privateItems;
         public ICollectionView Items { get; set; }
 
-        public string NewReg { get; set; }
-        public string NewRegReplace { get; set; }
 
-        [OnCommand("SaveRegexLictCommand")]
-        private void SaveRegexLictCommand()
+        [OnCommand("SaveRegexListCommand")]
+        private void SaveRegexList()
         {
-         
+            _repository.Save<RegexExpressionList>();
         }
 
         [OnCommand("AddNewregexCommand")]
-        private void AddNewregexCommand()
+        private void AddNewregex()
         {
-
+            privateItems.Add(new RegexReplaceExpression
+            {
+                Order = privateItems.Max(i=>i.Order) + 1
+            });
         }
 
         [OnCommand("RemovePaternCommand")]
-        private void RemovePaternCommand()
+        private void RemovePatern(RegexReplaceExpression patern)
         {
-
+            privateItems.Remove(patern);
         }
-
+        [OnCommand("ReloadRegexListCommand")]
+        private void ReloadRegexList()
+        {
+            _repository.Load<RegexExpressionList>(_repository.Options.GetDataPath<RegexExpressionList>());
+        }
 
     }
 }

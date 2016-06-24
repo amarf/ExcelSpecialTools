@@ -31,6 +31,14 @@
                 <view:ProfileView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:RegexListViewModel}">
+                <view:RegexListView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AddressListViewModel}">
+                <view:AddressListView />
+            </DataTemplate>
+
         </ResourceDictionary>
     </UserControl.Resources>
     <TabControl>
@@ -42,5 +50,9 @@
                  FontSize="14" />
         <TabItem Header="Профили"
                  Content="{Binding Profile}" />
+        <TabItem Header="Адреса"
+                 Content="{Binding Addreses}" />
+        <TabItem Header="Выражения"
+                 Content="{Binding Regex}" />
     </TabControl>
 </UserControl>
