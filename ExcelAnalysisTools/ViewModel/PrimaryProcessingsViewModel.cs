@@ -85,29 +85,29 @@ namespace ExcelAnalysisTools.ViewModel
 
         #region Commands
 
-        [OnCommand("SelectDistrictColumnCommand")]
-        public void SelectDistrictColumn(bool isCheked)
-        {
-            if (isCheked)
-            {
-                IsSelectAddressColumn = false;
-                IsSelectDistrictColumn = true;
-            }
-            else
-                IsSelectDistrictColumn = false;
-        }
+        //[OnCommand("SelectDistrictColumnCommand")]
+        //public void SelectDistrictColumn(bool isCheked)
+        //{
+        //    if (isCheked)
+        //    {
+        //        IsSelectAddressColumn = false;
+        //        IsSelectDistrictColumn = true;
+        //    }
+        //    else
+        //        IsSelectDistrictColumn = false;
+        //}
 
-        [OnCommand("SelectAddressColumnCommand")]
-        public void SelectAddressColumn(bool isCheked)
-        {
-            if (isCheked)
-            {
-                IsSelectAddressColumn = true;
-                IsSelectDistrictColumn = false;
-            }
-            else
-                IsSelectAddressColumn = false;
-        }
+        //[OnCommand("SelectAddressColumnCommand")]
+        //public void SelectAddressColumn(bool isCheked)
+        //{
+        //    if (isCheked)
+        //    {
+        //        IsSelectAddressColumn = true;
+        //        IsSelectDistrictColumn = false;
+        //    }
+        //    else
+        //        IsSelectAddressColumn = false;
+        //}
 
        
 
@@ -117,14 +117,23 @@ namespace ExcelAnalysisTools.ViewModel
         public bool ShowFirstResultCanExecute() => IsFirstComplite;
 
 
+
+        public bool Start_1_Procces { get; set; }
         IList<WorkObject> tempList;
         [OnCommand("FirstMarcosCommand")]
-        public void StartDistrictMarcos()
+        private async void StartDistrictMarcos()
         {
             IsFirstComplite = false;
 
             var class1 = _serviceLocator.GetInstance<Class1>();
-            var data = tempList = class1.CollectData();
+
+
+            Start_1_Procces = true;
+            var data = tempList = await Task.Run(() =>
+            {
+                return class1.CollectData();
+            });
+            Start_1_Procces = false;
 
             if (data == null)
             {

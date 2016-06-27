@@ -207,6 +207,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="img\crossroads64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\crossroads.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="Model\Data\ProfileList.xml" />
     <Resource Include="Model\Data\RegexListW.xml" />
     <Resource Include="Model\Data\Адресный список адаптированный 13-04-16.xml" />

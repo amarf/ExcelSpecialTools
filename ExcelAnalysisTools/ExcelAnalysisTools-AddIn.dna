@@ -1,6 +1,7 @@
 <DnaLibrary Name="ExcelAnalysisTools Add-In" RuntimeVersion="v4.0">
   <ExternalLibrary Path="ExcelAnalysisTools.dll" LoadFromBytes="true" Pack="true"  />
-  
+  <Image Name="crossroads" Path="img/crossroads.png" Pack="true" />
+  <Image Name="crossroads64" Path="img/crossroads64.png" Pack="true" />
   <!-- 
        The RuntimeVersion attribute above allows two settings:
        * RuntimeVersion="v2.0" - for .NET 2.0, 3.0 and 3.5
@@ -18,13 +19,13 @@
   -->
 
   <CustomUI>
-    <customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui' onLoad="OnLoadCustomUI">
+    <customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui' onLoad="OnLoadCustomUI" loadImage='LoadImage'>
       <ribbon>
         <tabs>
-          <tab id='ToolsTab' label='TOOLS TAB'>
-            <group id='atoolGroup' label='CTP Control'>
+          <tab id='ToolsTab' label='Утилиты'>
+            <group id='atoolGroup' label='Сравнение программ'>
               <!--<button id='Button1' label="Open tools" onAction='OpenToolPanelCommand'/>-->
-              <toggleButton  id='toggle_openToolPanel' label="Open tools2" getPressed="ValidateIsPressed" onAction='OpenToolPanelCommand' />
+              <toggleButton id='toggle_openToolPanel' image='crossroads64' size='large' label="Метод выражений" getPressed="ValidateIsPressed" onAction='OpenToolPanelCommand' />
             </group >
           </tab>
         </tabs>

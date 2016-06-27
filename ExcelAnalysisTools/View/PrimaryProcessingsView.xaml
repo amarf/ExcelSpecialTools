@@ -10,8 +10,7 @@
              FontSize="14"
              mc:Ignorable="d">
     <Grid>
-        <DockPanel Grid.Row="3"
-                   Grid.ColumnSpan="2" />
+
 
         <StackPanel Margin="0,6,0,0"
                     HorizontalAlignment="Stretch">
@@ -39,5 +38,23 @@
                            Text="Двух профильное сравнение" />
             </DockPanel>
         </StackPanel>
+
+        <ContentControl Panel.ZIndex="100">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Start_1_Procces}" Value="True">
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <Border Background="LemonChiffon">
+                                        <TextBlock Text="Идет обаботка..." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"/>
+                                    </Border>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
     </Grid>
 </UserControl>

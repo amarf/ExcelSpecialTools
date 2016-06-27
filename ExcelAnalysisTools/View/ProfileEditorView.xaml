@@ -15,8 +15,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Buttons.xaml" />
+                <ResourceDictionary Source="Resources/ScrollViewer.xaml" />
                 <ResourceDictionary Source="Resources/ToggleButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+
+
             <DataTemplate DataType="{x:Type model:WorkSheetProfileItem}">
                 <DockPanel>
                     <Button VerticalAlignment="Center"

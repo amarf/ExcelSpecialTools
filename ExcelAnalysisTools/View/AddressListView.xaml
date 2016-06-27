@@ -53,24 +53,30 @@
                                    Fill="Gray" />
 
                         <TextBox Grid.Column="0"
+                                 MinWidth="50"
                                  Margin="6,0"
                                  HorizontalContentAlignment="Left"
                                  VerticalContentAlignment="Center"
+                                 TextWrapping="Wrap"
                                  Text="{Binding District, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="0"
                                  Background="Transparent" />
                         <TextBox Grid.Column="1"
+                                 MinWidth="50"
                                  Margin="6,0"
                                  HorizontalContentAlignment="Left"
                                  VerticalContentAlignment="Center"
+                                 TextWrapping="Wrap"
                                  Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="0"
                                  Background="Transparent" />
 
                         <TextBox Grid.Column="2"
+                                 MinWidth="50"
                                  Margin="6,0"
                                  HorizontalContentAlignment="Center"
                                  VerticalContentAlignment="Center"
+                                 TextWrapping="Wrap"
                                  Text="{Binding KgiopStatus, UpdateSourceTrigger=PropertyChanged}"
                                  BorderThickness="0"
                                  Background="Transparent" />
@@ -133,6 +139,76 @@
                   ItemsSource="{Binding Items}" />-->
 
 
+        <!--<DataGrid Grid.Row="2"
+                  Grid.ColumnSpan="33"
+                  Margin="0,3"
+                  HeadersVisibility="Column"
+                  RowDetailsVisibilityMode="Collapsed"
+                  CanUserResizeRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  AlternatingRowBackground="#FFF7FBD1"
+                  ItemsSource="{Binding Items}"
+                  AlternationCount="2"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  AutoGenerateColumns="False"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  HorizontalGridLinesBrush="LightGray"
+                  VerticalGridLinesBrush="LightGray">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="*"
+                                        TextBlock.FontSize="14"
+                                        Header="Район"
+                                        SortMemberPath="District">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Margin="0"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Top"
+                                     Text="{Binding District}"
+                                     TextWrapping="Wrap"
+                                     BorderThickness="0"
+                                     Background="Transparent" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="2*"
+                                        Header="Адрес"
+                                        SortMemberPath="Address">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Margin="0"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Top"
+                                     FontSize="14"
+                                     Text="{Binding Address}"
+                                     TextWrapping="Wrap"
+                                     BorderThickness="0"
+                                     Background="Transparent" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*"
+                                        Header="Статус ОКН"
+                                        SortMemberPath="KgiopStatus">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Margin="0"
+                                     HorizontalAlignment="Left"
+                                     VerticalContentAlignment="Top"
+                                     FontSize="14"
+                                     Text="{Binding KgiopStatus}"
+                                     TextWrapping="Wrap"
+                                     BorderThickness="0"
+                                     Background="Transparent" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>-->
         <ListBox Grid.Row="2"
                  Grid.ColumnSpan="33"
                  Margin="0,3"
@@ -180,19 +256,22 @@
                                        HorizontalAlignment="Right"
                                        Fill="Gray" />
                             <TextBlock Grid.Column="0"
-                                       Margin="3"
+                                       MinWidth="50"
+                                       Margin="0 3"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Text="Район"
                                        FontFamily="Segoe UI Semibold" />
                             <TextBlock Grid.Column="1"
-                                       Margin="3"
+                                       MinWidth="50"
+                                       Margin="0 3"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        FontFamily="Segoe UI Semibold"
                                        Text="Адрес" />
                             <TextBlock Grid.Column="2"
-                                       Margin="3"
+                                       MinWidth="50"
+                                       Margin="0 3"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        FontFamily="Segoe UI Semibold"

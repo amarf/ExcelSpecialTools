@@ -57,7 +57,9 @@ namespace ExcelAnalysisTools.ViewModel
         {
             if (string.IsNullOrWhiteSpace(FindText)) return true;
 
+
             var findLine = (obj as AddressModel)?.Address?.ToLower();
+            if (string.IsNullOrWhiteSpace(findLine)) return true; //это что бы пустые строчки также позращались
             var mass = FindText.ToLower().Split(' ', ',', '.');
             foreach (var substring in mass)
                 if (!findLine.Contains(substring)) return false;

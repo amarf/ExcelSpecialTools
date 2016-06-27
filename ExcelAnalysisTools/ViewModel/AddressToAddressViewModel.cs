@@ -99,10 +99,17 @@ namespace ExcelAnalysisTools.ViewModel
             if (string.IsNullOrWhiteSpace(FindText)) return true;
 
             var findLine = (obj as AddressModel)?.Address?.ToLower();
-            var mass = FindText.ToLower().Split(' ', ',', '.');
-            foreach (var substring in mass)
-                if (!findLine.Contains(substring)) return false;
-            return true;
+            if (findLine != null)
+            {
+                var mass = FindText.ToLower().Split(' ', ',', '.');
+                foreach (var substring in mass)
+                    if (!findLine.Contains(substring)) return false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         private bool FilterMethod_found(object obj)
         {

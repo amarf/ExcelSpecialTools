@@ -10,13 +10,30 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
+
+
+
+
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type viewmodel:AddressToAddressViewModel}">
-            <view:AddressToAddress />
-        </DataTemplate>
-        <DataTemplate x:Key="HeaderTemplate">
-            <TextBlock Text="{Binding Profile.ProfileName}" />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\ScrollViewer.xaml" />
+                <ResourceDictionary Source="Resources\TabControl.xaml" />
+                <ResourceDictionary Source="Resources\Buttons.xaml" />
+                <ResourceDictionary Source="Resources\ListBox.xaml" />
+                <ResourceDictionary Source="Resources\ToggleButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewmodel:AddressToAddressViewModel}">
+                <view:AddressToAddress />
+            </DataTemplate>
+            <DataTemplate x:Key="HeaderTemplate">
+                <TextBlock Text="{Binding Profile.ProfileName}" />
+            </DataTemplate>
+
+        </ResourceDictionary>
+
+
 
 
     </UserControl.Resources>

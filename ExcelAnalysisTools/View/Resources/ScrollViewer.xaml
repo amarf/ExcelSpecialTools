@@ -117,8 +117,8 @@
     </Style>
 
     <!--  горизонтальный ползунок  -->
+    <!--  BasedOn="{StaticResource {x:Type Thumb}}"  -->
     <Style x:Key="ScrollBarThumbHorizontal"
-           BasedOn="{StaticResource {x:Type Thumb}}"
            TargetType="{x:Type Thumb}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />

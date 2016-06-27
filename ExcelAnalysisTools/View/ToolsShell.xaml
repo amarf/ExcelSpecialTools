@@ -44,15 +44,15 @@
     <TabControl>
         <TabItem Header="Обработка"
                  Content="{Binding PrimaryProcessings}" />
+        <TabItem Header="Профили"
+                 Content="{Binding Profile}" />
+        <TabItem Header="Выражения"
+                 Content="{Binding Regex}" />
+        <TabItem Header="Адреса"
+                 Content="{Binding Addreses}" />
         <TabItem Header="Настройки"
                  Content="{Binding Options}"
                  FontFamily="Segoe UI Semibold"
                  FontSize="14" />
-        <TabItem Header="Профили"
-                 Content="{Binding Profile}" />
-        <TabItem Header="Адреса"
-                 Content="{Binding Addreses}" />
-        <TabItem Header="Выражения"
-                 Content="{Binding Regex}" />
     </TabControl>
 </UserControl>
