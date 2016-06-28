@@ -207,6 +207,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="img\bolt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="img\crossroads64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -319,6 +322,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{53b824a9-1ee6-4ac6-ba78-7ffc506c0802}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InlineSearch\InlineSearch.csproj">
+      <Project>{43d9ef4e-b464-4fe3-a847-c6b2aca31ec8}</Project>
+      <Name>InlineSearch</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -15,6 +15,8 @@ using System.Diagnostics;
 using System.Collections;
 using System.Windows.Controls.Primitives;
 using ExcelDna.Integration.Extensibility;
+using InlineSearch.ViewModel;
+using System.Windows;
 
 namespace ExcelAnalysisTools.Boot.Ribbon
 {
@@ -39,28 +41,31 @@ namespace ExcelAnalysisTools.Boot.Ribbon
 
         public void OpenToolPanelCommand(IRibbonControl control, bool state)
         {
-            var uniCod = (control.Context as dynamic).Hwnd;
-            var pane = PanelHash[uniCod] as CustomTaskPane;
+            var pane = GetPane<ToolsShell, ShellViewModel>(control, "Панель инструментов");
+            pane.Visible = state;
+        }
+
+        public void OpenInlineSearchPanelCommand(IRibbonControl control, bool state)
+        {
+            var pane = GetPane<InlineSearch.View.ProfileEditorView, InlineSearch.ViewModel.ProfileEditorViewModel>(control, "Линейный поиск");
+            pane.Visible = state;
+        }
+
+
+        private CustomTaskPane GetPane<View, ViewModel>(IRibbonControl control, string Header) where View : FrameworkElement where ViewModel : class
+        {
+            var id = GetRibbonControlId(control);
+            var pane = PanelHash[id] as CustomTaskPane;
             if (pane == null)
             {
                 var paneManager = _container.GetInstance<IPaneManager<CustomTaskPane>>();
-               // var ctPane = paneManager.CreateCustomTaskPane<PrimaryProcessingsView, PrimaryProcessingsViewModel>("Панел инструментов");
-                var ctPane = paneManager.CreateCustomTaskPane<ToolsShell, ShellViewModel>("Панель инструментов");
-                ctPane.Visible = true;
-
-                PanelHash[uniCod] = ctPane;
-
-                ctPane.VisibleStateChange += CustomTaskPane =>
-                {
-                    _customRibbonUI?.InvalidateControl("toggle_openToolPanel"); //выполняет валидацию контрола (всех коппий)
-                };
+                var ctPane = paneManager.CreateCustomTaskPane<View, ViewModel>(Header);
+                PanelHash[id] = pane = ctPane;
+                ctPane.VisibleStateChange += CustomTaskPane => _customRibbonUI?.InvalidateControl(control.Id);
             }
-            else
-            {
-                pane.Visible = state;
-            }
+
+            return pane;
         }
-
 
         private IRibbonUI _customRibbonUI;
         public void OnLoadCustomUI(IRibbonUI obj) => _customRibbonUI = obj; //собитие создания риббон см. ExcelAnalysisTools.dna
@@ -68,10 +73,10 @@ namespace ExcelAnalysisTools.Boot.Ribbon
 
         public bool ValidateIsPressed(IRibbonControl control)
         {
-            var uniCod = (control.Context as dynamic).Hwnd;
-            if (PanelHash.ContainsKey(uniCod))
+            var id = GetRibbonControlId(control);
+            if (PanelHash.ContainsKey(id))
             {
-                var pane = PanelHash[uniCod] as CustomTaskPane;
+                var pane = PanelHash[id] as CustomTaskPane;
                 return pane.Visible;
             }
             else
@@ -80,6 +85,12 @@ namespace ExcelAnalysisTools.Boot.Ribbon
             }
         }
 
+        private string GetRibbonControlId(IRibbonControl control)
+        {
+            var uniCod = (control.Context as dynamic).Hwnd;
+            var id = control.Id;
+            return uniCod + "_" + id;
+        }
 
 
         //http://stackoverflow.com/questions/36756227/how-do-i-get-this-excel-dna-wpf-custom-task-pane-to-not-eat-scrollwheel-events

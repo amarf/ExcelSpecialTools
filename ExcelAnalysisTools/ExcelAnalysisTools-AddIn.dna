@@ -2,6 +2,7 @@
   <ExternalLibrary Path="ExcelAnalysisTools.dll" LoadFromBytes="true" Pack="true"  />
   <Image Name="crossroads" Path="img/crossroads.png" Pack="true" />
   <Image Name="crossroads64" Path="img/crossroads64.png" Pack="true" />
+  <Image Name="bolt" Path="img/bolt.png" Pack="true" />
   <!-- 
        The RuntimeVersion attribute above allows two settings:
        * RuntimeVersion="v2.0" - for .NET 2.0, 3.0 and 3.5
@@ -26,6 +27,8 @@
             <group id='atoolGroup' label='Сравнение программ'>
               <!--<button id='Button1' label="Open tools" onAction='OpenToolPanelCommand'/>-->
               <toggleButton id='toggle_openToolPanel' image='crossroads64' size='large' label="Метод выражений" getPressed="ValidateIsPressed" onAction='OpenToolPanelCommand' />
+              <toggleButton id='toggle_openInlineSearchPanel' image='bolt' size='large' label="Линейный поиск" getPressed="ValidateIsPressed" onAction='OpenInlineSearchPanelCommand' />
+
             </group >
           </tab>
         </tabs>

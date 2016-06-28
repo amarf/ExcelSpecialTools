@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelAnalysisTools", "Excel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{53B824A9-1EE6-4AC6-BA78-7FFC506C0802}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InlineSearch", "InlineSearch\InlineSearch.csproj", "{43D9EF4E-B464-4FE3-A847-C6B2ACA31EC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{53B824A9-1EE6-4AC6-BA78-7FFC506C0802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B824A9-1EE6-4AC6-BA78-7FFC506C0802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B824A9-1EE6-4AC6-BA78-7FFC506C0802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43D9EF4E-B464-4FE3-A847-C6B2ACA31EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43D9EF4E-B464-4FE3-A847-C6B2ACA31EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43D9EF4E-B464-4FE3-A847-C6B2ACA31EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43D9EF4E-B464-4FE3-A847-C6B2ACA31EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
