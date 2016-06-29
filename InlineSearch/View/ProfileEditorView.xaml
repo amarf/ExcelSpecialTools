@@ -22,118 +22,126 @@
 
 
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <UniformGrid Margin="0,6"
-                         Rows="1">
-                <Button Margin="0,0,3,0"
-                        Content="Back"
-                        Command="{Binding DataContext.BackCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" />
-                <!--<ToggleButton Margin="3,0,0,0"
+    <TabControl>
+        <TabItem Header="Настройка">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <UniformGrid Margin="0,6"
+                                 Rows="1">
+                        <Button Margin="0,0,3,0"
+                                Content="Back"
+                                Command="{Binding DataContext.BackCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}" />
+                        <!--<ToggleButton Margin="3,0,0,0"
                               Content="Auto"
                               IsChecked="{Binding DataContext.IsAutoCommandBegin, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
                               Command="{Binding DataContext.AutoCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
                               CommandParameter="{Binding}" />-->
-            </UniformGrid>
-            <Grid Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="a1" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    </UniformGrid>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0"
-                           Margin="3"
-                           VerticalAlignment="Center"
-                           Text="Имя профиля" />
-                <TextBox Grid.Column="1"
-                         Margin="3"
-                         Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Имя профиля" />
+                        <TextBox Grid.Column="1"
+                                 Margin="3"
+                                 Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </Grid>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Имя листа" />
+                        <TextBox Grid.Column="1"
+                                 Margin="3"
+                                 Text="{Binding WorksheetName, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </Grid>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Постановочный лист" />
+                        <TextBox Grid.Column="1"
+                                 Margin="3"
+                                 TextWrapping="Wrap"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 AcceptsReturn="True"
+                                 Text="{Binding DistrictWordReplace, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </Grid>
+
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Первая строка" />
+                        <ToggleButton Grid.Column="1"
+                                      Margin="3"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+
+                    </Grid>
+
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="a1" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Margin="3"
+                                   VerticalAlignment="Center"
+                                   Text="Последняя строка" />
+                        <ToggleButton Grid.Column="1"
+                                      Margin="3"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+
+                    </Grid>
+
+
+                </StackPanel>
+
+                <TabControl Grid.Row="1">
+                    <TabItem Header="Ключ поиска" />
+                    <TabItem Header="Я источник">
+                        Сдесь мы указываем те данные которые лист может предоставить в качестве источника
+                        В основном это столбец и некоторые преобразования этих данных
+                    </TabItem>
+                    <TabItem Header="Я получатель">
+                        Сдесь мы указываем те данные которые лист может получить от других источников
+                        А также в какой столбец их вставлять
+                    </TabItem>
+                </TabControl>
+
 
             </Grid>
-            <Grid Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="a1" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0"
-                           Margin="3"
-                           VerticalAlignment="Center"
-                           Text="Имя листа" />
-                <TextBox Grid.Column="1"
-                         Margin="3"
-                         Text="{Binding WorksheetName, UpdateSourceTrigger=PropertyChanged}" />
-
-            </Grid>
-            <Grid Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="a1" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0"
-                           Margin="3"
-                           VerticalAlignment="Center"
-                           Text="Постановочный лист" />
-                <TextBox Grid.Column="1"
-                         Margin="3"
-                         TextWrapping="Wrap"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         AcceptsReturn="True"
-                         Text="{Binding DistrictWordReplace, UpdateSourceTrigger=PropertyChanged}" />
-
-            </Grid>
-
-            <Grid Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="a1" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0"
-                           Margin="3"
-                           VerticalAlignment="Center"
-                           Text="Первая строка" />
-                <ToggleButton Grid.Column="1"
-                              Margin="3"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
-
-            </Grid>
-
-            <Grid Height="30">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="a1" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0"
-                           Margin="3"
-                           VerticalAlignment="Center"
-                           Text="Последняя строка" />
-                <ToggleButton Grid.Column="1"
-                              Margin="3"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
-
-            </Grid>
-
-
-        </StackPanel>
-
-        <TabControl Grid.Row="1">
-            <TabItem Header="Предоставляемые данные">
-                Сдесь мы указываем те данные которые лист может предоставить в качестве источника
-                В основном это столбец и некоторые преобразования этих данных
-            </TabItem>
-            <TabItem Header="Получаемые данные">
-                Сдесь мы указываем те данные которые лист может получить от других источников
-                А также в какой столбец их вставлять
-            </TabItem>
-        </TabControl>
-
-
-    </Grid>
+        </TabItem>
+        <TabItem Header="Просмотр">
+            <Grid />
+        </TabItem>
+    </TabControl>
 </UserControl>

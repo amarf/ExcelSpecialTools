@@ -70,14 +70,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IDataService.cs" />
+    <Compile Include="Interfaces\IErrorMessageService.cs" />
+    <Compile Include="Interfaces\IErrorTraceService.cs" />
     <Compile Include="Interfaces\IExcelTaskPaneManager.cs" />
     <Compile Include="Interfaces\IFileBrowserDialog.cs" />
     <Compile Include="Interfaces\IMethodDecorator.cs" />
     <Compile Include="Interfaces\IOptionsService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserMsgService.cs" />
     <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\CoreRepository.cs" />
+    <Compile Include="Model\CoreOptionItem.cs" />
+    <Compile Include="Model\CoreOptios.cs" />
     <Compile Include="Model\RegexItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\ErrorTraceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

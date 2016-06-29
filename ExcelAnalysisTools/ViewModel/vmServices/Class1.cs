@@ -36,36 +36,44 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
 
         public IList<WorkObject> CollectData() //мы должны сдесь создать адрессные списки
         {
-            var workObjList = GetActiveProfiles(_repository.ProfileList.Items);
-            if (workObjList.Count == 0)
-                return null;
-
-            if (!ApplyRegexToAddresses())
+            try
             {
-                _userMsgService.MsgShow($"Не удалось применить шаблоны Regex к адресному списку. Операция прервана.");
-                return null;
-            }
+                var workObjList = GetActiveProfiles(_repository.ProfileList.Items);
+                if (workObjList.Count == 0)
+                    return null;
 
-            
-
-            foreach (var workObj in workObjList)
-            {
-                if(!profileCheck(workObj.Profile))
+                if (!ApplyRegexToAddresses())
                 {
-                    _userMsgService.MsgShow($"Профиль [{workObj.Profile.ProfileName}] исключен из обработки из-за ошибок воода (debug: Class1 profileCheck)");
-                    continue;
-                }
-                if(workObj.ActiveRange == null)
-                {
-                    _userMsgService.MsgShow($"При обработке профиля [{workObj.Profile.ProfileName}] произошли ошибки (debug: WorkObject class - ActiveRange == null)");
-                    continue;
+                    _userMsgService.MsgShow($"Не удалось применить шаблоны Regex к адресному списку. Операция прервана.");
+                    return null;
                 }
 
 
-                CollectDataFromProfile(workObj);
-            }
 
-            return workObjList;
+                foreach (var workObj in workObjList)
+                {
+                    if (!profileCheck(workObj.Profile))
+                    {
+                        _userMsgService.MsgShow($"Профиль [{workObj.Profile.ProfileName}] исключен из обработки из-за ошибок воода (debug: Class1 profileCheck)");
+                        continue;
+                    }
+                    if (workObj.ActiveRange == null)
+                    {
+                        _userMsgService.MsgShow($"При обработке профиля [{workObj.Profile.ProfileName}] произошли ошибки (debug: WorkObject class - ActiveRange == null)");
+                        continue;
+                    }
+
+
+                    CollectDataFromProfile(workObj);
+                }
+
+                return workObjList;
+            }
+            catch (Exception e)
+            {
+                _userMsgService.MsgShow("Произошла ошибка приложения !!! " + (e.InnerException.Message ?? e.Message));
+                return null;
+            }
         }
 
         private bool ApplyRegexToAddresses()
@@ -194,6 +202,7 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
                     regValuesCount[adr.Regex]++;
                 else if (adr != null && !regValuesCount.ContainsKey(adr.Regex))
                     regValuesCount.Add(adr.Regex, 1);
+
             }
 
             //проверка на уникальность

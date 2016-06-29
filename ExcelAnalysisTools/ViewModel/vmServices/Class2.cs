@@ -34,28 +34,36 @@ namespace ExcelAnalysisTools.ViewModel.vmServices
 
         public SD.DataTable GoWork(IList<WorkObject> workObjList, bool isTwoProfileCompare)
         {
-            foreach (var item in workObjList)
-                item.Counter = 0; //сбрасываем счетчики
-
-            var list = workObjList;
-            if (isTwoProfileCompare)
-                list = workObjList.OrderBy(i => i.Profile.Order).ToList();
-
-            if (list.Count == 0) return null;
-
-            SortAddresses(list);
-            AddressModel curentMinNumberAdr;
-            var resultTable = CreateTable(list);
-            var keys = GetResultKeys(list);
-
-            while (true)
+            try
             {
-                curentMinNumberAdr = GetMinNumberAddress(list);
-                if (curentMinNumberAdr == null) break;
-                AddDataToResultTable(resultTable, curentMinNumberAdr, list, keys, isTwoProfileCompare);
-            }
+                foreach (var item in workObjList)
+                    item.Counter = 0; //сбрасываем счетчики
 
-            return resultTable;
+                var list = workObjList;
+                if (isTwoProfileCompare)
+                    list = workObjList.OrderBy(i => i.Profile.Order).ToList();
+
+                if (list.Count == 0) return null;
+
+                SortAddresses(list);
+                AddressModel curentMinNumberAdr;
+                var resultTable = CreateTable(list);
+                var keys = GetResultKeys(list);
+
+                while (true)
+                {
+                    curentMinNumberAdr = GetMinNumberAddress(list);
+                    if (curentMinNumberAdr == null) break;
+                    AddDataToResultTable(resultTable, curentMinNumberAdr, list, keys, isTwoProfileCompare);
+                }
+
+                return resultTable;
+            }
+            catch (Exception e)
+            {
+                _userMsgService.MsgShow("Произошла ошибка приложения !!! " + (e.InnerException.Message ?? e.Message));
+                return null;
+            }
         }
 
         private SD.DataTable CreateTable(IList<WorkObject> workObjList)
