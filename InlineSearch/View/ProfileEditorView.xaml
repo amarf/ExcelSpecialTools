@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:InlineSearch.View"
+             xmlns:model="clr-namespace:InlineSearch.Model"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -15,6 +16,32 @@
                 <!--<ResourceDictionary Source="pack://application:,,,/Core;component/Resources/Buttons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Core;component/Resources/ToggleButtonStyle.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type model:KeyItem}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="{Binding Colunm}" />
+                    <Button Grid.Row="0"
+                            Grid.Column="1"
+                            Content="select"
+                            Command="{Binding DataContext.SelectColumnCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                            CommandParameter="{Binding .}" />
+
+
+                </Grid>
+            </DataTemplate>
+
         </ResourceDictionary>
 
 
@@ -126,7 +153,13 @@
                 </StackPanel>
 
                 <TabControl Grid.Row="1">
-                    <TabItem Header="Ключ поиска" />
+                    <TabItem Header="Ключ поиска">
+                        <StackPanel>
+                            <Button Content="add"
+                                    Command="{Binding AddNewKeyCommand}" />
+                            <ListBox ItemsSource="{Binding Profile.Keys}" />
+                        </StackPanel>
+                    </TabItem>
                     <TabItem Header="Я источник">
                         Сдесь мы указываем те данные которые лист может предоставить в качестве источника
                         В основном это столбец и некоторые преобразования этих данных

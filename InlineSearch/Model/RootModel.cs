@@ -23,5 +23,6 @@ namespace InlineSearch.Model
         [XmlArray("addresses"), XmlArrayItem("address")]
         public ObservableCollection<Address> Addresses { get; set; }
 
+
     }
 }
