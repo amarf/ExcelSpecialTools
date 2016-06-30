@@ -78,6 +78,11 @@
     <Compile Include="Interfaces\IOptionsService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserMsgService.cs" />
+    <Compile Include="Maybe\Do.cs" />
+    <Compile Include="Maybe\If.cs" />
+    <Compile Include="Maybe\Return.cs" />
+    <Compile Include="Maybe\ReturnSuccess.cs" />
+    <Compile Include="Maybe\With.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CoreRepository.cs" />
     <Compile Include="Model\CoreOptionItem.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\ErrorTraceService.cs" />
+    <Compile Include="Maybe\Maybe.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
